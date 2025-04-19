@@ -1,10 +1,11 @@
 <div class="container">
     <h2>Your Cart</h2>
     <div *ngIf="cartItems.length === 0">Cart is empty</div>
-    <div class="row" *ngFor="let item of cartItems; let i = index">
+    <div class="container" *ngFor="let item of cartItems; let i = index">
       <div class="col-md-4 col-sm-6 mb-3">
-        <div class="card" style="width: 18rem;">
-          <img [src]="item.img" class="card-img-top" alt="{{ item.name }}" height="200px">
+        <div class="" style="width: 100rem; display: flex; ">
+          <input type="checkbox" [(ngModel)]="item.selected" name="item-{{i}}">
+          <img [src]="item.img" class="" alt="{{ item.name }}" height="200px" width="30%" margin-right="20px"> >
           <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
             <p class="card-text">Price: {{ item.price }}</p>
@@ -21,5 +22,15 @@
       </div>
     </div>
     <button class="btn btn-warning" *ngIf="cartItems.length" (click)="clearCart()">Clear Cart</button>
+    <button *ngIf="cartItems.length != 0" (click)="openCheckoutModal()">Proceed to Checkout</button>
   </div>
+  <div *ngIf="cartItems.length !== 0" class="container">
+    <app-checkout
+    *ngIf="showModal"
+    [selectedItems] ="selected_items"
+    (closeModal)="closeCheckoutModal()"
+    ></app-checkout>
+  </div>
+  
+
   
