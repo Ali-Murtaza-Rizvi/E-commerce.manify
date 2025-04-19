@@ -1,0 +1,20 @@
+<div class="modal-backdrop" (click)="close()"></div>
+<div class="modal-content">
+  <h2>Checkout</h2>
+  <div class="container" *ngFor="let item of selectedItems; let i = index">
+    <div class="col-md-4 col-sm-6 mb-3">
+      <div class="" style="width: 100rem; display: flex; ">
+        <img [src]="item.img" class="" alt="{{ item.name }}" height="200px" width="30%" margin-right="20px"> >
+        <div class="card-body">
+          <h5 class="card-title">{{ item.name }}</h5>
+          <p class="card-text">Price: {{ item.price }}</p>
+          <p class="card-text">{{ item.detail }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
+
+          <button class="btn btn-danger" (click)="removeItem(i)">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="close()">Close</button>
+</div>
