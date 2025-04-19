@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center items on small screens */
+    gap: 30px;
+    padding: 10px; /* Add padding for better spacing */
+}
+
+/* Product Card */
+.container > div {
+    width: 100%; /* Default full width for small screens */
+    max-width: 280px; /* Restrict max width */
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 15px;
+}
+
+/* Image */
+.container img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+}
+
+/* Text */
+.container h4,
+.container p {
+    text-align: center;
+}
+
+/* Price & Cart Button */
+.container .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        gap: 15px; /* Reduce gap on smaller screens */
+    }
+
+    .container > div {
+        width: 100%; /* Cards take full width */
+        max-width: 200px; /* Slightly wider for better appearance */
+    }
+
+    .container img {
+        height: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .container > div {
+        width: 90%;
+        max-width: 180px;
+    }
+}

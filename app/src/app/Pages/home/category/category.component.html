@@ -1,0 +1,10 @@
+<p style="align-items: center;display: flex; justify-content: center;" class="heading">CATEGORY</p>
+
+<div class="container">
+  <div *ngFor="let product of Categories" [ngStyle]="{'background-image': 'url(' + product.image + ')'}" class="category-card">
+      <div class="card-content">
+          <p class="card-title">{{ product.title }}</p>
+          <button class="shop-button">Shop Now</button>
+      </div>
+  </div>
+</div>

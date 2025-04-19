@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand" routerLink="/">
+      <img src="assests/logo.svg" alt="Logo" width="80px" height="20px" style="height: 50px">
+    </a>
+
+    <!-- Navbar Toggle Button for Mobile View -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Items -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto gap-lg-5">  
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/" routerLinkActive="router-link-active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="router-link-active">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/shop" routerLinkActive="router-link-active">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="router-link-active">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Search & Cart Button -->
+      <div class="d-flex align-items-center gap-3">
+        <form class="d-flex" style="flex-direction: row;" role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
+        <button routerLink='/cart' class="btn">
+          <img width="35" height="30" src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="shopping-cart">
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

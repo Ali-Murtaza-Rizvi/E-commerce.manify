@@ -1,0 +1,64 @@
+/* General Styles */
+* {
+    font-size: 1.1rem; /* Slightly reduced for better mobile view */
+}
+
+/* Navbar Styling */
+.navbar {
+    padding: 15px 0;
+    // height: 60px;
+}
+
+.navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ff5722; /* Add hover effect */
+}
+
+/* Search Box */
+.form-control {
+    border-radius: 25px;
+    height: 40px;
+}
+
+.btn-outline-dark {
+    border-radius: 25px;
+    height: 40px;
+    font-weight: 500;
+}
+
+/* Make Navbar More Responsive */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .d-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-control {
+        flex-direction:row;
+        width: 70%;
+    }
+
+    .btn-outline-dark {
+        width: 25% 
+    }
+}

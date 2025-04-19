@@ -1,0 +1,55 @@
+.productBackground{
+    background: rgb(214, 211, 211);
+    margin: 0px;
+    padding-top: 2%;
+}
+
+.product{
+    background: white;
+    padding: 10px;
+}
+.Pdetails{
+    margin-top: 10px;
+    padding-right: 5px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.Price{
+    color: rgb(242, 121, 80);
+    font-size: 2em;
+    
+    font-weight: 610;
+
+}
+.Pend{
+    margin-bottom: 3%;
+}
+.Pend button{
+    margin: auto;
+    color: white;
+    background: black;
+    height: 50px;
+    border-radius: 10px;
+    transition: 0.5s ease;
+}
+.Pend button:hover{
+    background: rgb(242, 121, 80);
+    border: none;
+    font-size: large;
+    color: black;
+    font-weight: bold;
+
+}
+
+
+.star {
+    font-size: 24px;
+    color: gray;
+  }
+  
+  .filled {
+    color: gold;
+  }
+  

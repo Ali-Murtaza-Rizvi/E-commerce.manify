@@ -1,0 +1,25 @@
+
+<!-- Product Display -->
+<div class="container" style="padding-bottom: 10px;">
+
+  <h1 class="container">You May Also Like</h1>
+  <div class="container">
+    <div *ngFor="let product of paginatedProducts" (click)="viewProduct(product)"  class="product-card">
+      <img class="productImg" [src]="product.img" alt="{{ product.title }}">
+      <h4>{{ product.title }}</h4>
+      <p>{{ product.detail }}</p>
+  
+      <div class="price-cart">
+        <p>{{ product.price | currency }}</p>
+        <img (click)="AddToCart(product)" width="35" height="35" src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="cart"/>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Pagination Controls -->
+  <div class="pagination container" style="justify-content: end;" >
+    <button (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Next</button>
+  </div>
+</div>
