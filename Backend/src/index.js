@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 //Routes
-app.use("/api", authRoutes); // Use the route at /api/login or /api/register
+app.use("/api/auth", authRoutes); // Use the route at /api/auth/login or /api/auth/register
 
 //Start the server 
 const PORT = process.env.PORT || 7002;
