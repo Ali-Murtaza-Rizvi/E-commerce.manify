@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 
 //Routes
+app.use("/api", authRoutes); // Use the route at /api/login or /api/register
 
 //Start the server 
 const PORT = process.env.PORT || 7002;
