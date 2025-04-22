@@ -8,6 +8,8 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private tokenKey = 'auth_token';
   constructor(private http:HttpClient) { }
+
+  //login 
   login(email: string, password: string){
     return this.http.post<{token:string}>('http://localhost:7001/api/auth/login', {email, password}).pipe(
       tap((response: any) => {
@@ -37,4 +39,12 @@ export class AuthService {
     }
     return false;
   }
+
+
+
+  //signup
+  signup(email: string,username:string, password:string, isAdmin:boolean){
+    return this.http.post('http://localhost:7001/api/auth/signup', { email, password });
+  }
+  
 }
