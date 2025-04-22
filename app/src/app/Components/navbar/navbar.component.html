@@ -5,14 +5,15 @@
       <img src="assests/logo.svg" alt="Logo" width="80px" height="20px" style="height: 50px">
     </a>
 
-    <!-- Navbar Toggle Button for Mobile View -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Toggle Button for Mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Navbar Items -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto gap-lg-5">  
+      <ul class="navbar-nav mx-auto gap-lg-5">
         <li class="nav-item">
           <a class="nav-link active" routerLink="/" routerLinkActive="router-link-active">Home</a>
         </li>
@@ -27,15 +28,23 @@
         </li>
       </ul>
 
-      <!-- Search & Cart Button -->
+      <!-- Search, Cart, Login/Signup -->
       <div class="d-flex align-items-center gap-3">
+        <!-- Search -->
         <form class="d-flex" style="flex-direction: row;" role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-dark" type="submit">Search</button>
         </form>
+
+        <!-- Cart -->
         <button routerLink='/cart' class="btn">
-          <img width="35" height="30" src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="shopping-cart">
+          <img width="35" height="30"
+            src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="shopping-cart">
         </button>
+
+        <!-- Auth Buttons -->
+        <button routerLink="auth/login" class="btn btn-outline-primary">Login</button>
+        <button routerLink="auth/signup" class="btn btn-primary">Sign Up</button>
       </div>
     </div>
   </div>
