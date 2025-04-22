@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AuthService } from '../../../services/auth.service';
 @Component({
   imports: [ReactiveFormsModule],
   standalone: true,
@@ -13,7 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+
+  constructor(private fb: FormBuilder, private router: Router,private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -23,10 +24,19 @@ export class LoginComponent {
   onLogin() {
     if (this.loginForm.valid) {
       console.log('Logging in with', this.loginForm.value);
-      // Add login API logic here
-      this.router.navigate(['/']); // Redirect to homepage on success
+      const { email, password } = this.loginForm.value;
+  
+      this.authService.login(email, password).subscribe(
+        (response) => {
+          console.log('Login successful', response);
+          this.router.navigate(['/']); // ✅ Navigate after login success
+        },
+        (error) => {
+          console.error('Login failed', error); // Optional: handle error
+        }
+      );
     }
   }
+  
+
 }
-
-
