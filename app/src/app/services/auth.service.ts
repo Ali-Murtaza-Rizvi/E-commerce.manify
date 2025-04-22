@@ -43,8 +43,8 @@ export class AuthService {
 
 
   //signup
-  signup(email: string,username:string, password:string, isAdmin:boolean){
-    return this.http.post('http://localhost:7001/api/auth/signup', { email, password });
+  signup(email: string, username:string, password:string, isAdmin:boolean){
+    return this.http.post('http://localhost:7001/api/auth/register', { email,username,password,isAdmin });
   }
   
 }

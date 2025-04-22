@@ -16,7 +16,9 @@ export class SignupComponent {
   constructor(private fb: FormBuilder, private router: Router,private authService: AuthService) {
     this.SignUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      username: ['', [Validators.required]],
+      password: ['', Validators.required],
+      isAdmin: [false] // Default value for isAdmin
     });
   }
   onSignUp() {
