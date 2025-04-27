@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand" routerLink="/">
-      <img src="assests/logo.svg" alt="Logo" width="80px" height="20px" style="height: 50px">
+      <img src="assests/logo.svg" alt="Logo" width="70" style="height: 45px;">
     </a>
 
     <!-- Toggle Button for Mobile -->
@@ -29,22 +29,23 @@
       </ul>
 
       <!-- Search, Cart, Login/Signup -->
-      <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-4">
         <!-- Search -->
-        <form class="d-flex" style="flex-direction: row;" role="search">
+        <form class="d-flex align-items-center gap-2" role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-dark" type="submit">Search</button>
         </form>
 
         <!-- Cart -->
-        <button routerLink='/cart' class="btn">
-          <img width="35" height="30"
-            src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="shopping-cart">
+        <button routerLink='/cart' class="btn cart-btn" title="View Cart">
+          <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="shopping-cart">
         </button>
 
         <!-- Auth Buttons -->
-        <button routerLink="auth/login" class="btn btn-outline-primary">Login</button>
-        <button routerLink="auth/signup" class="btn btn-primary">Sign Up</button>
+        <div class="auth-buttons d-flex gap-2">
+          <button routerLink="auth/login" class="btn btn-outline-primary login-btn">Login</button>
+          <button routerLink="auth/signup" class="btn btn-primary signup-btn">Sign Up</button>
+        </div>
       </div>
     </div>
   </div>

@@ -25,27 +25,27 @@ export class CartComponent {
     });
     console.log('Cart Items:', this.cartItems);
   }
-  
+
   removeItem(index: number) {
     this.cartservice.removeFromCart(index);
     this.cartItems = this.cartservice.getCartItem();  // Refresh cart items
   }
-  
+
   clearCart(){
     this.cartItems=[];
     this.cartservice.clearCart();
   }
 
-  updateQuantity(increase: boolean) {
+  updateQuantity(index: number, increase: boolean) {
     if (increase) {
-      this.quantity += 1; // Increase the quantity
+      this.cartItems[index].quantity += 1;
     } else {
-      if (this.quantity > 1) {
-        this.quantity -= 1; // Decrease quantity but not below 1
+      if (this.cartItems[index].quantity > 1) {
+        this.cartItems[index].quantity -= 1;
       }
     }
   }
-  
+
   openCheckoutModal() {
     this.selected_items = this.cartItems.filter(item => item.selected); // Filter selected items
     console.log('Selected Items:', this.selected_items);
