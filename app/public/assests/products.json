@@ -59,4 +59,24 @@
     "quantity": 100,
     "rating": 4
   }
+  ,{
+    "img": "assests/third.jpg",
+    "title":"Product 7",
+    "name": "Charging Case Sport Headset for all Bluetooth Smart devices.",
+    "price": 300,
+    "detail":"This is very cool shirt",
+    "review": "This is very cool shirt",
+    "quantity": 100,
+    "rating": 4
+  },
+  {
+    "img": "assests/third.jpg",
+    "title":"Product 8",
+    "name": "Charging Case Sport Headset for all Bluetooth Smart devices.",
+    "price": 300,
+    "detail":"This is very cool shirt",
+    "review": "This is very cool shirt",
+    "quantity": 100,
+    "rating": 4
+  }
 ]

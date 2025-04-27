@@ -6,11 +6,10 @@ import { CartService } from '../../services/cart.service';
 import { YouMayLikeComponent } from "./you-may-like/you-may-like.component";
 import { DescriptionComponent } from "./description/description.component";
 import { ReviewComponent } from './review/review.component';
-import { FooterComponent } from "../../Components/footer/footer.component";
 import{FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-product-page',
-  imports: [CurrencyPipe, YouMayLikeComponent,FormsModule, CommonModule, DescriptionComponent, ReviewComponent, FooterComponent],
+  imports: [CurrencyPipe, YouMayLikeComponent,FormsModule, CommonModule, DescriptionComponent, ReviewComponent],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss'
 })
