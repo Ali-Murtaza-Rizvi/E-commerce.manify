@@ -3,12 +3,14 @@ const dotenv = require("dotenv").config();
 const dbConnect = require("./config/dbConnect");
 const authRoutes = require("./routes/authRoutes");
 dbConnect();  
+const cors = require('cors');
 
 const app = express();
 
 //Middleware 
 app.use(express.json());
 
+app.use(cors());
 //Routes
 app.use("/api/auth", authRoutes); // Use the route at /api/auth/login or /api/auth/register
 
