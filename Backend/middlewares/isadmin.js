@@ -1,3 +1,6 @@
+
+
+
 const isAdmin = (req, res, next) => {
     // Check if the user exists and has admin privileges
     if (req.user && req.user.isAdmin) {
