@@ -7,12 +7,14 @@ const productRoutes = require("./routes/productroutes");
 
 
 dbConnect();  
+const cors = require('cors');
 
 const app = express();
 
 //Middleware 
 app.use(express.json());
 
+app.use(cors());
 //Routes
 app.use("/api/auth", authRoutes); // Use the route at /api/auth/login or /api/auth/register
 app.use("/api/products", productRoutes);
