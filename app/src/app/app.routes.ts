@@ -6,6 +6,8 @@ import { LoginComponent } from '../app/website-layout/Pages/auth/login/login.com
 import { SignupComponent } from '../app/website-layout/Pages/auth/signup/signup.component';
 import { WebsiteLayoutComponent } from './website-layout/website-layout.component';
 import { DashboardComponent } from './admin-layout/dashboard/dashboard.component';
+import { AboutUsComponent } from './website-layout/Pages/about-us/about-us.component';
+
 // import { DashboardComponent } from './Pages/admin/dashboard/dashboard.component';
 
 export const routes: Routes = [
@@ -20,9 +22,9 @@ export const routes: Routes = [
                     path:'cart',
                     component:CartComponent
                 },
-                { 
+                {
                     path: 'product/:productName',
-                    component: ProductPageComponent 
+                    component: ProductPageComponent
                 },
                 {
                     path:'auth/login',
@@ -32,6 +34,8 @@ export const routes: Routes = [
                     path:'auth/signup',
                     component:SignupComponent
                 },
+                { path: 'about', component: AboutUsComponent
+                }
             ]
     },
     {
@@ -43,5 +47,5 @@ export const routes: Routes = [
             }
         ]
     }
-    
+
 ];
