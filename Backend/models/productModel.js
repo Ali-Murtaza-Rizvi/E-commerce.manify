@@ -35,11 +35,12 @@ const productSchema=new mongoose.Schema({
      },
   ],
 
-   images:[{
-    type:String,
-    required:true,
- },
-   ],
+  images: [
+    {
+        data: Buffer,
+        contentType: String
+    }
+],
    createdAt:{
     type:Date,
     default:Date.now,

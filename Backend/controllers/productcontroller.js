@@ -4,17 +4,25 @@ const Product=require('../models/productModel');
 
 const addProduct=async(req,res)=>{
     try{
-        const{name,price,description,category,stock}=req.body;
+        console.log("hi");
 
+
+        const{name,price,description,category,stock}=req.body;
+        const images = req.files.map(file => ({
+            data: file.buffer,
+            contentType: file.mimetype
+        }));
+        console.log(images);
+        console.log(name);
         const newProduct=new Product({
             name,
             price,
             description,
             category,
             stock,
-            image:req.file? req.file.path:null,
+            images, // Store the images in the database
         });
-        
+        console.log("hi");
         const savedProduct=await newProduct.save();
         res.status(201).json({ success: true, product: savedProduct });
     } catch (error) {
