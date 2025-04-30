@@ -5,8 +5,11 @@ import { ProductPageComponent } from '../app/website-layout/Pages/product-page/p
 import { LoginComponent } from '../app/website-layout/Pages/auth/login/login.component';
 import { SignupComponent } from '../app/website-layout/Pages/auth/signup/signup.component';
 import { WebsiteLayoutComponent } from './website-layout/website-layout.component';
-import { DashboardComponent } from './admin-layout/dashboard/dashboard.component';
 import { AboutUsComponent } from './website-layout/Pages/about-us/about-us.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { OrdersComponent } from './admin-layout/orders/orders.component';
+import { ProductsComponent } from './admin-layout/products/products.component';
+import { ReviewsComponent } from './admin-layout/reviews/reviews.component';
 
 // import { DashboardComponent } from './Pages/admin/dashboard/dashboard.component';
 
@@ -40,12 +43,14 @@ export const routes: Routes = [
     },
     {
         path:'admin',
-        children:[
-            {
-                path:'dashboard',
-                component:DashboardComponent
-            }
-        ]
+        component:AdminLayoutComponent,
+        children: [
+            { path: 'products', component: ProductsComponent },
+            { path: 'orders', component: OrdersComponent },
+            { path: 'reviews', component: ReviewsComponent },
+            { path: '', redirectTo: 'products', pathMatch: 'full' },
+          ]
+        
     }
 
 ];

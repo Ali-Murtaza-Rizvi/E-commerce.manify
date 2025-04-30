@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,8 @@ export class AuthService {
   logout() {
     localStorage.removeItem(this.tokenKey);
   }
-
+  
+  
   isLoggedIn(): boolean {
     return !!localStorage.getItem(this.tokenKey);
   }
