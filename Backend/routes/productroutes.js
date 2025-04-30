@@ -21,6 +21,8 @@ router.get("/:id", getProductById);
 ///api/products
 // Admin-only routes
 // router.post("/add", addProduct);
+
+
 router.post("/",upload.array("images", 5), addProduct);
 router.put("/:id", isAdmin, updateProduct);
 router.delete("/:id", isAdmin, deleteProduct);

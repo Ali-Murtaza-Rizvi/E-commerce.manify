@@ -4,25 +4,19 @@ const Product=require('../models/productModel');
 
 const addProduct=async(req,res)=>{
     try{
-        console.log("hi");
-
-
         const{name,price,description,category,stock}=req.body;
         const images = req.files.map(file => ({
             data: file.buffer,
             contentType: file.mimetype
         }));
-        console.log(images);
-        console.log(name);
         const newProduct=new Product({
             name,
-            price,
+            price:Number(price),
             description,
             category,
-            stock,
+            stock:Number(stock),
             images, // Store the images in the database
         });
-        console.log("hi");
         const savedProduct=await newProduct.save();
         res.status(201).json({ success: true, product: savedProduct });
     } catch (error) {
@@ -76,7 +70,7 @@ const updateProduct = async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
-};
+};  
 
 /**
  * Delete a product (Admin only)
