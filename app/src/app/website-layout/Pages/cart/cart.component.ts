@@ -6,7 +6,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule,FormsModule,CheckoutComponent],
+  imports: [CommonModule, FormsModule, CheckoutComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })

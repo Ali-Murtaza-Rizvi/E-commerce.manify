@@ -1,1 +1,10 @@
-<p>products works!</p>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <input formControlName="name" placeholder="Name">
+    <input formControlName="description" placeholder="Description">
+    <input formControlName="price" type="number" placeholder="Price">
+    <input formControlName="category" placeholder="Category">
+    <input type="file" (change)="onImageChange($event)" multiple>
+  
+    <button type="submit">Submit</button>
+  </form>
+  

@@ -2,12 +2,19 @@
   <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand" routerLink="/">
-      <img src="assests/logo.svg" alt="Logo" width="70" style="height: 45px;">
+      <img src="assests/logo.svg" alt="Logo" width="70" style="height: 45px" />
     </a>
 
     <!-- Toggle Button for Mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -15,16 +22,36 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto gap-lg-5">
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/" routerLinkActive="router-link-active">Home</a>
+          <a
+            class="nav-link active"
+            routerLink="/"
+            routerLinkActive="router-link-active"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/about" routerLinkActive="router-link-active">About</a>
+          <a
+            class="nav-link"
+            routerLink="/about"
+            routerLinkActive="router-link-active"
+            >About</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/shop" routerLinkActive="router-link-active">Shop</a>
+          <a
+            class="nav-link"
+            routerLink="/shop"
+            routerLinkActive="router-link-active"
+            >Shop</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/contact" routerLinkActive="router-link-active">Contact</a>
+          <a
+            class="nav-link"
+            routerLink="/contact"
+            routerLinkActive="router-link-active"
+            >Contact</a
+          >
         </li>
       </ul>
 
@@ -32,19 +59,46 @@
       <div class="d-flex align-items-center gap-4">
         <!-- Search -->
         <form class="d-flex align-items-center gap-2" role="search">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <input
+            class="form-control"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
           <button class="btn btn-outline-dark" type="submit">Search</button>
         </form>
 
         <!-- Cart -->
-        <button routerLink='/cart' class="btn cart-btn" title="View Cart">
-          <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="shopping-cart">
+        <button routerLink="/cart" class="btn cart-btn" title="View Cart">
+          <img
+            width="30"
+            height="30"
+            src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
+            alt="shopping-cart"
+          />
         </button>
 
         <!-- Auth Buttons -->
         <div class="auth-buttons d-flex gap-2" *ngIf="!isLoggedin">
-          <button routerLink="auth/login" class="btn btn-outline-primary login-btn">Login</button>
-          <button routerLink="auth/signup" class="btn btn-primary signup-btn">Sign Up</button>
+          <button
+            routerLink="auth/login"
+            class="btn btn-outline-primary login-btn"
+          >
+            Login
+          </button>
+          <button routerLink="auth/signup" class="btn btn-primary signup-btn">
+            Sign Up
+          </button>
+        </div>
+        <div class="auth-buttons d-flex gap-2" *ngIf="isLoggedin">
+          
+          <button style="color: black; font-size: large;" mat-button [matMenuTriggerFor]="menu">{{userName}}</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Profile</button>
+            <button routerLink="admin" mat-menu-item>Dashboard</button>
+            <button mat-menu-item>Orders</button>
+            <button (click)="logout()" mat-menu-item>Logout</button>
+          </mat-menu>
         </div>
       </div>
     </div>

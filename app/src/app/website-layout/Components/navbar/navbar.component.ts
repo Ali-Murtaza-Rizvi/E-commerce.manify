@@ -2,26 +2,36 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterModule,CommonModule],
+  imports: [RouterModule,CommonModule,MatButtonModule, MatMenuModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  isLoggedin: boolean = false;
-  isAdmin: boolean = false;
- 
-  constructor(private authservice:AuthService) {
+  isLoggedin = false;
+  isAdmin = false;
+  userName:any = null;
 
-  }
+  constructor(private authService: AuthService) {}
+
   ngOnInit() {
-    this.isLoggedin = this.authservice.isLoggedIn();
-    this.isAdmin = this.authservice.isAdmin();
+    // 🔁 Subscribing to login state reactively
+    this.authService.isLoggedIn().subscribe((status) => {
+      this.isLoggedin = status;
+      this.isAdmin = this.authService.isAdmin();
+    });
+    this.userName =  this.authService.getName();
+    
   }
-  isLoggedIn(){
-    return this.isLoggedIn;
+  logout(){
+    this.authService.logout();
+    this.isLoggedin = false;
+    this.isAdmin = false;
+    this.userName = null;
   }
   
 
