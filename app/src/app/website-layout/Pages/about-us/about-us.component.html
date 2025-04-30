@@ -1,12 +1,33 @@
 <div class="about-wrapper">
   <div class="about-container">
     <h1>About Us</h1>
-    <p>
-      Welcome to our e-commerce platform! We are passionate about delivering the best products with exceptional service.
-    </p>
-    <p>
-      Whether you're looking for the latest gadgets or everyday essentials, we've got you covered.
-    </p>
-    <button class="cta-button">Start Shopping</button>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          Welcome to <strong>{{ brandName }}</strong> — your go-to destination for premium fashion and lifestyle essentials.
+        </p>
+        <p>
+          Founded with a passion for quality and style, we bring you a curated collection of modern apparel that speaks comfort, confidence, and creativity. From everyday wear to standout pieces, we aim to help you express your unique identity.
+        </p>
+        <p>
+          We believe fashion is more than just clothing — it's a way to tell your story. Join us in our mission to redefine style with sustainability, affordability, and elegance.
+        </p>
+        <button class="cta-button">Explore Our Collection</button>
+      </div>
+      <div class="about-image">
+        <img src="assests/group.jpg" alt="About Us Fashion" />
+      </div>
+    </div>
+  </div>
+
+  <div class="team-section">
+    <h2>Meet Our Team</h2>
+    <div class="team-members">
+      <div class="team-card" *ngFor="let member of teamMembers">
+        <img [src]="member.image" [alt]="member.name" />
+        <h3>{{ member.name }}</h3>
+        <p>{{ member.role }}</p>
+      </div>
+    </div>
   </div>
 </div>

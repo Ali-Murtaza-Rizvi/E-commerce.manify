@@ -10,6 +10,8 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { OrdersComponent } from './admin-layout/orders/orders.component';
 import { ProductsComponent } from './admin-layout/products/products.component';
 import { ReviewsComponent } from './admin-layout/reviews/reviews.component';
+import { ContactUSComponent } from './website-layout/Pages/contact-us/contact-us.component';
+
 
 // import { DashboardComponent } from './Pages/admin/dashboard/dashboard.component';
 
@@ -37,7 +39,11 @@ export const routes: Routes = [
                     path:'auth/signup',
                     component:SignupComponent
                 },
-                { path: 'about', component: AboutUsComponent
+                {   path: 'about',
+                    component: AboutUsComponent
+                },
+                { path: 'contact',
+                    component: ContactUSComponent
                 }
             ]
     },
@@ -50,7 +56,7 @@ export const routes: Routes = [
             { path: 'reviews', component: ReviewsComponent },
             { path: '', redirectTo: 'products', pathMatch: 'full' },
           ]
-        
+
     }
 
 ];
