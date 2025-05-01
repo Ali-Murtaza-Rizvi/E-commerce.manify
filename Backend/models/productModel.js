@@ -34,6 +34,13 @@ const productSchema=new mongoose.Schema({
       rating:{type:Number},
      },
   ],
+    admin_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Reference to the User (admin) model
+      required: true
+    }
+  
+  ,
 
   images: [
     {
@@ -49,7 +56,8 @@ const productSchema=new mongoose.Schema({
     type: Date,
     default: Date.now,
 },
-}, { timestamps: true }); 
+}, 
+{ timestamps: true }); 
 
 const Product = mongoose.model('Product', productSchema);
 
