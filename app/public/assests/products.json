@@ -11,8 +11,8 @@
   },
   {
     "img": "assests/second.jpg",
-    "title":"Fall Fashion Collection",
-    "name": "Fall Fashion Collection",
+    "title":"Fall Collection",
+    "name": "Fall Collection",
     "price": 100,
     "detail": "Exclusive seasonal styles for modern wardrobes",
     "review": "Great quality and very stylish.",
@@ -21,8 +21,8 @@
   },
   {
     "img": "assests/third.jpg",
-    "title":"Spring Fashion Collection",
-    "name": "Spring Fashion Collection",
+    "title":"Spring Collection",
+    "name": "Spring Collection",
     "price": 300,
     "detail":"Comfortable and elegant daily wear outfits",
     "review": "Perfect for everyday use.",
@@ -31,8 +31,8 @@
   },
   {
     "img": "assests/fourth.jpg",
-    "title":"Patek Philippe Watch",
-    "name": "Patek Philippe Watch",
+    "title":"Patek Philippe",
+    "name": "Patek Philippe",
     "price": 800,
     "detail":"Bold luxury watch featuring quartz movement",
     "review": "Sleek and timeless — great investment.",
@@ -42,7 +42,7 @@
   {
     "img": "assests/fifth.jpg",
     "title":"Beige Chino Pants",
-    "name": "Beige Chino",
+    "name": "Beige Chino Pants",
     "price": 50,
     "detail":"Smart-casual chinos for versatile styling",
     "review": "Very comfortable and fits well.",
@@ -71,7 +71,7 @@
   },
   {
     "img": "assests/eighth.jpg",
-    "title":"Vans Shoes",
+    "title":"Vans",
     "name": "Vans Shoes",
     "price": 200,
     "detail":"Stylish",
