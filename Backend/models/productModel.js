@@ -23,6 +23,11 @@ const productSchema=new mongoose.Schema({
     required: true,
     default: 0,
   },
+  quantity:{
+    type:Number,
+    required:true,
+    min:1,
+  },
   reviews:[
      {
       user:{
