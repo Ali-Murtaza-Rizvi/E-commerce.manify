@@ -5,7 +5,7 @@
   <div *ngFor="let item of cartItems; let i = index" class="card mb-3 p-3">
     <div class="row g-0 align-items-center">
       <div class="col-md-4">
-        <img [src]="item.img" class="img-fluid rounded-start" alt="{{ item.name }}" style="height: 200px; object-fit: cover;">
+        <img [src]="item.img" class="img-fluid rounded-start cart-image" alt="{{ item.name }}">
       </div>
       <div class="col-md-8">
         <div class="card-body">

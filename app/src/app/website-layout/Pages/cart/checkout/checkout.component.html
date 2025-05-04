@@ -1,20 +1,27 @@
 <div class="modal-backdrop" (click)="close()"></div>
 <div class="modal-content">
-  <h2>Checkout</h2>
-  <div class="container" *ngFor="let item of selectedItems; let i = index">
-    <div class="col-md-4 col-sm-6 mb-3">
-      <div class="" style="width: 100rem; display: flex; ">
-        <img [src]="item.img" class="" alt="{{ item.name }}" height="200px" width="30%" margin-right="20px"> >
-        <div class="card-body">
-          <h5 class="card-title">{{ item.name }}</h5>
-          <p class="card-text">Price: {{ item.price }}</p>
-          <p class="card-text">{{ item.detail }}</p>
-          <p>Quantity: {{ item.quantity }}</p>
+  <h2 class="modal-title">Checkout</h2>
 
-          <button class="btn btn-danger" (click)="removeItem(i)">Remove</button>
-        </div>
-      </div>
+  <div class="cart-item" *ngFor="let item of selectedItems; let i = index">
+    <img [src]="item.img" alt="{{ item.name }}" class="item-img" />
+    <div class="item-details">
+      <h5>{{ item.name }}</h5>
+      <p>Price: {{ item.price }}</p>
+      <p>{{ item.detail }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+      <button class="btn btn-danger" (click)="removeItem(i)">Remove</button>
     </div>
   </div>
-  <button (click)="close()">Close</button>
+
+  <!-- 🧮 Total Section -->
+  <div class="summary">
+    <p><strong>Total Items:</strong> {{ totalItems }}</p>
+    <p><strong>Total Price:</strong> {{ totalPrice }}</p>
+  </div>
+
+  <!-- ✅ Actions -->
+  <div class="actions">
+    <button class="btn btn-primary" (click)="confirmCheckout()">Confirm Checkout</button>
+    <button class="btn btn-secondary" (click)="close()">Close</button>
+  </div>
 </div>
