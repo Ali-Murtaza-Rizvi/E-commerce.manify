@@ -12,6 +12,7 @@ const {
     getProductById,
     updateProduct,
     deleteProduct,
+    Searchbycat,
     getAllProductsByAdmin
 } = require("../controllers/productcontroller"); // Adjust path as necessary
 
@@ -23,5 +24,6 @@ router.get("/user/:id", getProductById);
 router.post("/add",upload.array("images", 5),protect, addProduct);
 router.put("/:id", isAdmin, updateProduct);
 router.delete("/:id", isAdmin, deleteProduct);
+router.get("/searchbycat",Searchbycat);
 // router.get("/admin",protect, getAllProductsByAdmin); 
 module.exports = router;

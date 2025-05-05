@@ -126,12 +126,43 @@ const getProductById=async(req,res)=>{
     }
 };
 
+const Searchbycat=async(req,res)=>{
+    try{
+        const {category}=req.query;
+
+        if(!category){
+            return res(400).json({
+                sucess:false,
+                message:"category is required to find product",
+            })
+        }
+
+        const product=await Product.find({category:category});
+
+        if(!product || product.length==0){
+            return res(404).json({
+                sucess:false,
+                messaage:"no product exist in this category",
+            })
+        }
+        res.status(200).json({
+            sucess:true,
+            product,
+        });
+
+    }
+    catch(error){
+        res.status(500).json({sucess:false,message:error.message});
+    }
+}
+
 module.exports = {
     addProduct,
     getAllProducts,
     getProductById,
     updateProduct,
     deleteProduct,
+    Searchbycat,
 
 };
     
