@@ -52,7 +52,7 @@ export const routes: Routes = [
                     component:ShopComponent,
                     children:[
                         {
-                            path:'product',component:ProductsComponent // change it to correct the name
+                            path:'product',component:ProductsComponent // change it to correct the name 
                         }
                     ]
                 }
