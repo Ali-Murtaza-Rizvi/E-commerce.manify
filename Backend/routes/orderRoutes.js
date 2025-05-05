@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const protect = require("../middlewares/Isauth");
 
 const {
   getAllOrders,
@@ -10,9 +11,9 @@ const {
 
 // Public routes
 router.get("/", getAllOrders);
-router.post("/add", AddOrders);
+router.post("/add",protect ,AddOrders);
 router.post("/delete",DeleteOrder);
-router.post("/update",updateOrders);
+router.post("/update",protect,updateOrders);
 
 
 module.exports = router;
