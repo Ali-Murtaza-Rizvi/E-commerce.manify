@@ -128,7 +128,8 @@ const getProductById=async(req,res)=>{
 
 const Searchbycat=async(req,res)=>{
     try{
-        const {category}=req.query;
+        const {category}=req.body;
+        console.log(category);
 
         if(!category){
             return res(400).json({
@@ -145,9 +146,21 @@ const Searchbycat=async(req,res)=>{
                 messaage:"no product exist in this category",
             })
         }
+        const formattedProducts = product.map(product => {
+                        const formattedImages = product.images.map(img => {
+                            const base64 = Buffer.from(img.data).toString('base64');
+                            return `data:${img.contentType};base64,${base64}`;
+                        });
+                    
+                        return {
+                            ...product._doc,
+                            images: formattedImages
+                        };
+                    });
+
         res.status(200).json({
             sucess:true,
-            product,
+            formattedProducts,
         });
 
     }
