@@ -11,6 +11,8 @@ import { OrdersComponent } from './admin-layout/orders/orders.component';
 import { ProductsComponent } from './admin-layout/products/products.component';
 import { ReviewsComponent } from './admin-layout/reviews/reviews.component';
 import { ContactUSComponent } from './website-layout/Pages/contact-us/contact-us.component';
+import { ShopComponent } from './website-layout/Pages/shop/shop.component';
+import { Component } from '@angular/core';
 
 
 // import { DashboardComponent } from './Pages/admin/dashboard/dashboard.component';
@@ -44,6 +46,15 @@ export const routes: Routes = [
                 },
                 { path: 'contact',
                     component: ContactUSComponent
+                },
+                {
+                    path: 'shop',
+                    component:ShopComponent,
+                    children:[
+                        {
+                            path:'product',component:ProductsComponent // change it to correct the name
+                        }
+                    ]
                 }
             ]
     },

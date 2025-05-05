@@ -1,0 +1,59 @@
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+   
+  .main {
+    display: flex;
+    height: 100%;
+    // height: 800px;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .sidenav {
+    display: flex;
+    // align-items: center;
+    flex-direction: column;
+    background-color: #b2b8bf;
+    height: 92vh;
+    color: white;
+    width: 10%;
+    padding: 10px;
+  }
+  
+  .sidenav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sidenav ul li {
+    margin: 15px 0;
+  }
+  
+  .sidenav a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .active-link {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+
+  
+  .content {
+    transition: width 0.3s;
+    // background-color: #f4f4f4;
+    padding: 20px;
+    overflow: auto;
+  }
+  
+
+  

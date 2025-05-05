@@ -26,7 +26,7 @@ export class ProductsComponent {
       images: [null],
       admin_id: [] 
     });
-    this.getProducts();
+    
   }
   ngOnInit() {
     this.adminProductService.getProducts().subscribe({
@@ -58,15 +58,15 @@ export class ProductsComponent {
     this.adminProductService.addProduct(formData);
   }
 
-  getProducts() {
-    console.log('Fetching products...');
-    this.adminProductService.getProducts().subscribe((data: any) => {
-      this.products = data;
-      console.log(this.products);
-    }, (error) => {
-      console.error('Error fetching products:', error);
-    });
-  }
+  // getProducts() {
+  //   console.log('Fetching products...');
+  //   this.adminProductService.getProducts().subscribe((data: any) => {
+  //     this.products = data;
+  //     console.log(this.products);
+  //   }, (error) => {
+  //     console.error('Error fetching products:', error);
+  //   });
+  // }
 
 
 
