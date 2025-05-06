@@ -60,24 +60,30 @@ const addToCart = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
-const Getcart=async(req,res)=>{
-    try{
-        const {userid}=req.query;
+const GetCart = async (req, res) => {
+    try {
+        const { userId } = req.query;
 
-        if(!userid){
+        // Validate if userId is provided
+        if (!userId) {
             return res.status(400).json({
-                success:false,
-                message:"user id needed",
+                success: false,
+                message: "User ID is required.",
             });
         }
-        const cart=await Cart.findById({userid:user})
 
-        if(!cart || cart.length==0){
+        // Find the cart associated with the given user ID
+        const cart = await Cart.findById(userId);
+
+        // Check if the cart exists
+        if (!cart) {
             return res.status(404).json({
-                sucess:false,
-                message:"no cart found for this user",
-            })
+                success: false,
+                message: "No cart found for this user.",
+            });
         }
+
+        // Respond with the cart details
         res.status(200).json({
             success: true,
             cart,
@@ -85,7 +91,6 @@ const Getcart=async(req,res)=>{
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
-    
+};
 
-}
-module.exports = { addToCart, };
+module.exports = { addToCart,GetCart};
