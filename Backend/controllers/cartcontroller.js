@@ -6,6 +6,7 @@ const addToCart = async (req, res) => {
     const { userId, productId, quantity } = req.body;
   
     let cart = await Cart.findOne({ user: userId });
+    
   
     const product = await Product.findById(productId);
   
@@ -33,7 +34,7 @@ const addToCart = async (req, res) => {
   };
 const GetCart = async (req, res) => {
     try {
-        const userId = req.query.userId || req.query.userid;
+        const userId = req.query.userId
 
         // Validate if userId is provided
         if (!userId) {
@@ -66,7 +67,7 @@ const GetCart = async (req, res) => {
 const ClearCart=async(req,res)=>{
     try{
         const{userId}=req.body;
-        const cart=await Cart.findByIdAndDelete(userId);
+        const cart=await Cart.findOneAndDelete(userId);
 
         if(!cart){
             return res.status(404).json({
