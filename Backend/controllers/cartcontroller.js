@@ -12,43 +12,6 @@ const addToCart = async (req, res) => {
     if (!product) {
       return res.status(400).json({ message: 'Product not found' });
     }
-<<<<<<< HEAD
-};
-const GetCart = async (req, res) => {
-    try {
-        const { userId } = req.query;
-
-        // Validate if userId is provided
-        if (!userId) {
-            return res.status(400).json({
-                success: false,
-                message: "User ID is required.",
-            });
-        }
-
-        // Find the cart associated with the given user ID
-        const cart = await Cart.findById(userId);
-
-        // Check if the cart exists
-        if (!cart) {
-            return res.status(404).json({
-                success: false,
-                message: "No cart found for this user.",
-            });
-        }
-
-        // Respond with the cart details
-        res.status(200).json({
-            success: true,
-            cart,
-        });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
-};
-
-module.exports = { addToCart,GetCart};
-=======
   
     const price = product.price;
     const item = { product: productId, quantity, price };
@@ -68,6 +31,87 @@ module.exports = { addToCart,GetCart};
     await cart.save();
     res.status(200).json(cart);
   };
-  
-module.exports = { addToCart, };
->>>>>>> 2c99bf3f7ee7d164e3090f90e43eeaef6decb0bc
+const GetCart = async (req, res) => {
+    try {
+        const userId = req.query.userId || req.query.userid;
+
+        // Validate if userId is provided
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "User ID is required.",
+            });
+        }
+
+        // Find the cart associated with the given userId
+        const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price");
+
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "No cart found for this user.",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+
+const ClearCart=async(req,res)=>{
+    try{
+        const{userId}=req.body;
+        const cart=await Cart.findByIdAndDelete(userId);
+
+        if(!cart){
+            return res.status(404).json({
+                sucess:false,
+                message:"no cart found"
+            });
+        }
+        res.status(200).json({ success: true, message: "Cart deleted successfully." });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+const updatecart = async (req, res) => {
+    try {
+        const { userId, productId, quantity } = req.body; // Destructure orderId, products, and status from the request body
+
+        // Find the order by ID
+        const cart = await Cart.findById(userId);
+
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "cart not found.",
+            });
+        }
+        const  itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
+
+        if (itemIndex === -1) {
+            return res.status(404).json({ success: false, message: "Product not found in cart." });
+        }
+
+        // Update quantity or remove item if quantity is 0
+        if (quantity === 0) {
+            cart.items.splice(itemIndex, 1);
+        } else {
+            cart.items[itemIndex].quantity = quantity;
+        }
+
+        // Recalculate total price
+        cart.totalPrice = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        await cart.save();
+        res.status(200).json({ success: true, cart });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+module.exports = { addToCart,GetCart,ClearCart,updatecart};
