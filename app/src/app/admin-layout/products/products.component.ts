@@ -31,7 +31,7 @@ export class ProductsComponent {
   ngOnInit() {
     this.adminProductService.getProducts().subscribe({
       next: (res: any) => {
-        this.products = res.products;  // ✅ correctly assign the array
+        this.products = res.formattedProducts; // ✅ correctly assign the array
         console.log('API response:', this.products);
       },
       error: err => {
