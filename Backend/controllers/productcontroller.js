@@ -128,7 +128,7 @@ const getProductById=async(req,res)=>{
 
 const Searchbycat=async(req,res)=>{
     try{
-        const {category}=req.body;
+        const {category}=req.query;
         console.log(category);
 
         if(!category){
@@ -168,6 +168,7 @@ const Searchbycat=async(req,res)=>{
         res.status(500).json({sucess:false,message:error.message});
     }
 }
+
 
 module.exports = {
     addProduct,
