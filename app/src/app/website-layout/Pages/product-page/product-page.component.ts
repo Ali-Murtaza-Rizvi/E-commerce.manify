@@ -22,8 +22,11 @@ export class ProductPageComponent {
     private productservice: ProductService,
     // private router: Router,
     private cartservice:CartService,
-  ) {}
+  ) {
+    window.scrollTo(0, 0);
+  }
   ngOnInit() {
+    window.scrollTo(0, 0); // Scroll to top on page load
     this.route.paramMap.subscribe(params => {
       const productName = params.get('productName'); // Get product name from URL
       if (productName) { 

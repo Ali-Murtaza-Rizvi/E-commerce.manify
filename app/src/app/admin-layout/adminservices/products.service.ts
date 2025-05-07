@@ -25,7 +25,7 @@ export class ProductsService {
 
       }
     }
-    return this.http.get<{success:boolean;products:any[]}>('http://localhost:7001/api/products/admin',Headers);//header contain the token which hold the admin id 
+    return this.http.get<{success:boolean;products:any[]}>('http://localhost:7001/api/products/');//header contain the token which hold the admin id 
   }
 
 
