@@ -1,11 +1,12 @@
 const Cart = require("../models/cartmodel");
 const Product = require("../models/productModel");
+const mongoose = require("mongoose");
 
 
 const addToCart = async (req, res) => {
     const { userId, productId, quantity } = req.body;
   
-    let cart = await Cart.findOne({ user: userId });
+    let cart = await Cart.findOne({user:userId});
     
   
     const product = await Product.findById(productId);
@@ -63,7 +64,63 @@ const GetCart = async (req, res) => {
     }
 };
 
+const delById = async (req, res) => {
+    try {
+        const { userId, productId } = req.body;
 
+        // Validate userId
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid User ID.",
+            });
+        }
+
+        // Find the cart for the user
+        const cart = await Cart.findOne({ user: userId });
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "No cart found for this user.",
+            });
+        }
+
+        // Find the product index in the cart items
+        const productIndex = cart.items.findIndex(
+            (item) => item.product.toString() === productId
+        );
+
+        if (productIndex === -1) {
+            return res.status(400).json({
+                success: false,
+                message: "Product not found in the cart.",
+            });
+        }
+
+        // Remove the product from the cart
+        cart.items.splice(productIndex, 1);
+
+        // Recalculate the total price
+        cart.totalprice = cart.items.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+        );
+
+        // Save the updated cart
+        await cart.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Product deleted successfully.",
+            cart, // Return the updated cart for confirmation
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
 const ClearCart=async(req,res)=>{
     try{
         const{userId}=req.body;
@@ -79,6 +136,7 @@ const ClearCart=async(req,res)=>{
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
+    
 };
 const updatecart = async (req, res) => {
     try {
@@ -115,4 +173,4 @@ const updatecart = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
-module.exports = { addToCart,GetCart,ClearCart,updatecart};
+module.exports = { addToCart,GetCart,ClearCart,updatecart,delById};
