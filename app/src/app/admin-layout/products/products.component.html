@@ -17,7 +17,11 @@
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">{{ product.description }}</p>
           <p class="card-text"><strong>Price:</strong> ₹{{ product.price }}</p>
-          <p class="card-text"><strong>Category:</strong> {{ product.category }}</p>
+          <select formControlName="category">
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category }}
+            </option>
+          </select>
         </div>
       </div>
     </div>

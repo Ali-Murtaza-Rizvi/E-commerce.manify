@@ -15,7 +15,7 @@ export class ProductsComponent {
   selectedImages: File[] = [];
   productForm!: FormGroup;
   products:any;
-  
+  categories: string[] = ['Electronics', 'Clothing', 'Books', 'Groceries', 'Beauty']; 
   constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
