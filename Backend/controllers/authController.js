@@ -5,6 +5,7 @@ const User = require('../models/userModel.js');
 const register = async (req,res) => {
     const{email,username,password,isAdmin} = req.body;
     if(!email || !username || !password){
+        console.log(username,password,email);
         return res.status(400).json({message:"Please provide email, username and password"});
     }
     try{
@@ -33,18 +34,21 @@ const register = async (req,res) => {
 };
 
 const login = async (req,res) => {
-    const{username,password} = req.body;
-    if(!username || !password){
-        return res.status(400).json({message:"Please provide username and password"});
+    const{email,password} = req.body;
+    if(!email || !password){
+        return res.status(400).json({message:"Please provide email and password"});
     }
     try{
-        const user = await User.findOne({username});
+        const user = await User.findOne({email});
         if(!user){
             return res.status(400).json({message:"Invalid username or password"});
         }
         if(await bcrypt.compare(password,user.password)){
             token = jwt.sign({
-                id:user._id,role:user.role
+                id:user._id,
+                role:user.role,
+                username:user.username,
+                email:user.email
             },
             process.env.JWT_SECRET,
             {expiresIn:"1d"}
