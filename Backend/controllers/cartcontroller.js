@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 
 const addToCart = async (req, res) => {
+    //change this user ID should come from token using auth miidleware
     const { userId, productId, quantity } = req.body;
   
     let cart = await Cart.findOne({user:userId});
@@ -35,6 +36,7 @@ const addToCart = async (req, res) => {
   };
 const GetCart = async (req, res) => {
     try {
+        //change this user ID should come from token using auth miidleware
         const userId = req.query.userId
 
         // Validate if userId is provided
@@ -66,6 +68,7 @@ const GetCart = async (req, res) => {
 
 const delById = async (req, res) => {
     try {
+        //change this user ID should come from token using auth miidleware
         const { userId, productId } = req.body;
 
         // Validate userId
@@ -123,6 +126,7 @@ const delById = async (req, res) => {
 };
 const ClearCart=async(req,res)=>{
     try{
+        //change this user ID should come from token using auth miidleware
         const{userId}=req.body;
         const cart=await Cart.findOneAndDelete(userId);
 
@@ -140,6 +144,7 @@ const ClearCart=async(req,res)=>{
 };
 const updatecart = async (req, res) => {
     try {
+         //change this user ID should come from token using auth miidleware
         const { userId, productId, quantity } = req.body; // Destructure orderId, products, and status from the request body
 
         // Find the order by ID

@@ -2,34 +2,6 @@ const Product=require('../models/productModel');
 
 
 /*                                          ADMIN PRODUCT PAGE                                          */
-//display all products added by admin   
-// const getAllProductsByAdmin=async(req,res)=>{
-//     try {
-//         const adminId = req.user._id;
-//         console.log("Decoded User:", req.user);
-//         const products = await Product.find({ admin_id: adminId });
-//         console.log(products.length);
-//         if (!products.length) {
-//           return res.status(404).json({ success: false, message: 'No products found for this admin' });
-//         }
-
-//         const formattedProducts = products.map(product => {
-//             const formattedImages = product.images.map(img => {
-//                 const base64 = Buffer.from(img.data).toString('base64');
-//                 return `data:${img.contentType};base64,${base64}`;
-//             });
-        
-//             return {
-//                 ...product._doc,
-//                 images: formattedImages
-//             };
-//         });
-//         res.status(200).json({ success: true, products: formattedProducts });
-//         // res.status(200).json({ success: true, products });
-//       } catch (error) {
-//         res.status(500).json({ success: false, message: error.message });
-//       }
-// };
 
 //add a new product(admin only)
 const addProduct=async(req,res)=>{
@@ -177,6 +149,5 @@ module.exports = {
     updateProduct,
     deleteProduct,
     Searchbycat,
-
 };
     
