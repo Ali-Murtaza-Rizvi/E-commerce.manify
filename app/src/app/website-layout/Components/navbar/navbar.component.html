@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <!-- Logo -->
-    <a class="navbar-brand" routerLink="/">
-      <img src="assests/logo.svg" alt="Logo" width="70" style="height: 45px" />
+    <a class="navbar-brand logo-container" routerLink="/">
+      <img src="assests/Manify.svg" alt="Manify Logo" class="logo" />
     </a>
 
     <!-- Toggle Button for Mobile -->
@@ -91,7 +91,7 @@
           </button>
         </div>
         <div class="auth-buttons d-flex gap-2" *ngIf="isLoggedin">
-          
+
           <button style="color: black; font-size: large;" mat-button [matMenuTriggerFor]="menu">{{userName}}</button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item>Profile</button>
