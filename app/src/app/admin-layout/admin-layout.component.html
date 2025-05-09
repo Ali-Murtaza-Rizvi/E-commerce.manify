@@ -1,1 +1,30 @@
-<p>admin-layout works!</p>
+
+   <div class="">
+    <div class="navbar">
+      <h1>Admin Dashboard</h1>
+    </div>
+    <div class="main">
+      <div
+        class="sidenav" 
+        [ngClass]="{ 'sidenav-collapsed': isCollapsed, 'sidenav-expanded': !isCollapsed }"
+      >
+        <button class="collapseButton"  (click)="toggleSidebar()">
+          {{ isCollapsed ? '☰' : '×' }}
+        </button>
+  
+        <ul *ngIf="!isCollapsed">
+          <li><a routerLink="products" routerLinkActive="active-link">Products</a></li>
+          <li><a routerLink="orders" routerLinkActive="active-link">Orders</a></li>
+          <li><a routerLink="reviews" routerLinkActive="active-link">Reviews</a></li>
+        </ul>
+      </div>
+  
+
+      <div
+        class="content"
+        [ngClass]="{ 'content-collapsed': isCollapsed, 'content-expanded': !isCollapsed }"
+      >
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div> 

@@ -1,0 +1,16 @@
+.product-form {
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.product-image {
+  max-height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}

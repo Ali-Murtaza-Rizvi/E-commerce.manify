@@ -1,6 +1,11 @@
-/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
 * {
   font-size: 1.1rem;
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
 }
 
 /* Navbar Styling */
@@ -13,6 +18,20 @@
   height: auto;
 }
 
+/* Logo Container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding-left: 10px;
+}
+
+.logo {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
 /* Navbar Links */
 .navbar-nav .nav-link {
   font-weight: 500;
@@ -20,7 +39,7 @@
 }
 
 .navbar-nav .nav-link:hover {
-  color: #3b82f6; /* Soft blue hover */
+  color: #000000;
 }
 
 /* Search Box */
@@ -33,6 +52,16 @@
   border-radius: 25px;
   height: 40px;
   font-weight: 500;
+  border: 2.5px solid;
+}
+
+.btn-outline-dark:hover {
+  border-radius: 25px;
+  height: 40px;
+  font-weight: 300;
+  color: #f0eded;
+  border: 2.5px solid;
+  background-color: black;
 }
 
 /* Cart Button */
@@ -43,69 +72,69 @@
   padding: 5px;
 }
 
+.cart-btn:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* light blue background */
+  transform: scale(1.15);
+}
+
 /* Auth Buttons */
 .auth-buttons .btn {
   padding: 8px 20px;
   font-weight: 500;
   border-radius: 25px;
+  border: 2.5px solid;
 }
 
 /* Login Button */
 .login-btn {
-  border-color: #3b82f6;
-  color: #3b82f6;
+  border-color: #4b75b8;
+  color: #4b75b8;
 }
 
 /* Sign Up Button */
 .signup-btn {
-  background-color: #3b82f6;
-  border-color: #3b82f6;
+  background-color: #4b75b8;
+  border-color: #4b75b8;
 }
 
 /* Hover effects */
 .login-btn:hover {
-  background-color: #3b82f6;
+  background-color: #2155aa;
   color: white;
 }
 
 .signup-btn:hover {
-  background-color: #2563eb;
-  border-color: #2563eb;
-}
-
-.cart-btn:hover {
-  background-color: rgba(0, 123, 255, 0.1); // light blue bg
-  transform: scale(1.15);
+  background-color: #2155aa;
+  border-color: #4b75b8;
 }
 
 /* Make Navbar More Responsive */
 @media (max-width: 992px) {
   .navbar-collapse {
-      text-align: center;
+    text-align: center;
   }
 
   .navbar-nav {
-      flex-direction: column;
-      gap: 10px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .d-flex {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .form-control {
-      width: 70%;
+    width: 70%;
   }
 
   .btn-outline-dark {
-      width: 25%;
+    width: 25%;
   }
 
   .auth-buttons {
-      flex-direction: column;
-      gap: 8px;
+    flex-direction: column;
+    gap: 8px;
   }
-
 }

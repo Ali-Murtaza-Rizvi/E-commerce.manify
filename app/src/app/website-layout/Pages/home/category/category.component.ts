@@ -17,23 +17,23 @@ export class CategoryComponent {
       title:'Shoes Collection'
     },
     {
-      image:'assests/first.jpg',
+      image:'assests/fourth.jpg',
       title:'Watches Collection'
     },
     {
-      image:'assests/first.jpg',
+      image:'assests/seventh.jpg',
       title:'Suits Collection'
     },
     {
-      image:'assests/first.jpg',
-      title:'shirts Collection'
+      image:'assests/sixth.jpg',
+      title:'Shirts Collection'
     },
     {
-      image:'assests/first.jpg',
-      title:'Shoes Collection'
+      image:'assests/shorts.jpg',
+      title:'Active Wear Collection'
     },
     {
-      image:'assests/first.jpg',
+      image:'assests/fifth.jpg',
       title:'Pants Collection'
     }
 

@@ -1,45 +1,90 @@
-/* Ensure the banner adapts to different screen sizes */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 *{
-    background: black;
+    background:#0b0b0b;
     color: aliceblue;
 }
 .banner {
+    position: relative;
+    font-family: "Outfit", sans-serif;
     display: flex;
-    // flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    gap: 20px; /* Adds spacing between elements */
+    gap: 40px;
+    padding: 0; /* Removed vertical padding */
+    min-height: 400px; /* Set a minimum height */
+    overflow: hidden; /* Prevents image overflow */
 }
 
 /* Text Section */
 .text {
-    width: 70%;
-    padding: 35px;
+    flex: 1;
+    padding: 60px 5%; /* Moved padding here from banner */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically centers text content */
 }
 
+.text h1 {
+    font-weight: 600;
+    font-size: 3em;
+    line-height: 1.1;
+    margin-bottom: 24px;
+
+}
 .text p {
-    font-size: 1.2em; /* Reduce text size for smaller screens */
-    width: 100%;
+    font-weight: 400;
+    font-size: 1.3em;
+    line-height: 1.7;
+    margin-bottom: 32px;
+    color:  #d8d2d2;
 }
 
-.text button {
-    width: auto;
-    padding: 10px 20px;
-    font-size: 1em;
+.text p span {
+    font-size: 1.32em;
+    font-weight: 600;
+    font-style: italic;
+    color:white;
 }
+.text button {
+    font-family: "Outfit", sans-serif;
+    font-weight: 300;
+    font-size: 0.9em; /* Reduced from 1.1em */
+    padding: 8px 20px; /* Reduced from 12px 32px */
+    background: transparent;
+    color: aliceblue;
+    border: 1.5px solid aliceblue; /* Slightly thinner border */
+    border-radius: 20px; /* Slightly less rounded */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px; /* Slightly reduced */
+    margin-top: 10px;
+    width: 20%; /* Ensures it doesn't stretch */
+    display: inline-block; /* Better for button sizing */
+}
+
+.text button:hover {
+    background: aliceblue;
+    color: #0b0b0b;
+    border-color: aliceblue;
+    transform: translateY(-1px); /* More subtle hover lift */
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1); /* Smaller shadow */
+}
+
 
 /* Image Section */
 .pic {
-    width: 30%;
+    width: 30%; /* Increased from 30% */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch; /* Changed from center to stretch */
+    height: 100%; /* Full height of banner */
 }
 
 .pic img {
-    max-width: 100%; /* Ensures image scales properly */
-    height: auto;
+    width: 100%;
+    height: 100%; /* Full height */
+    object-fit: cover; /* Ensures image covers the space without distortion */
+    object-position: center; /* Centers the image */
+    border-radius: 8px; /* Optional: if you want rounded corners */
 }
 
 /* Responsive Adjustments */

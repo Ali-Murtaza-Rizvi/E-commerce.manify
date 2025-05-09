@@ -1,1 +1,19 @@
-<p>shop works!</p>
+<div class="shop-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <ul class="category-list">
+      <li><a (click)="selectCategory('All')" routerLink="products" routerLinkActive="active">All</a></li>
+      <li><a (click)="selectCategory('Suits')" routerLink="products" routerLinkActive="active">Suits</a></li>
+      <li><a (click)="selectCategory('Pants')" routerLink="products" routerLinkActive="active">Pants</a></li>
+      <li><a (click)="selectCategory('Shirts')" routerLink="products" routerLinkActive="active">Shirts</a></li>
+      <li><a (click)="selectCategory('Shoes')" routerLink="products" routerLinkActive="active">Shoes</a></li>
+      <li><a (click)="selectCategory('Watches')" routerLink="products" routerLinkActive="active">Watches</a></li>
+      <li><a (click)="selectCategory('Trouser')" routerLink="products" routerLinkActive="active">Trouser</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main content -->
+  <main class="product-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

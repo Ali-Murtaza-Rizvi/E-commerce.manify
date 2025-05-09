@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../../../services/cart.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../../services/product.service';
-
+import {CartserviceService} from '../../../../../GlobalServices/cartservice.service'
 @Component({
   selector: 'app-cards',
   imports: [CommonModule],
@@ -20,13 +20,28 @@ export class CardsComponent {
       this.featuredProducts=data;
     });
   }
-  AddToCart(product:any){
+  // AddToCart(product:any){
+  //   this.cartservice.addToCart(product);
+  //   console.log(product.name);
+  // }
+
+  message: string = '';
+  showMessage: boolean = false;
+
+  AddToCart(product: any) {
     this.cartservice.addToCart(product);
     console.log(product.name);
-  } 
+    this.message = `${product.title} added to cart successfully!`;
+    this.showMessage = true;
+
+    // Hide after 3 seconds
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 3000);
+  }
 
   viewProduct(product:any){
-    this.router.navigate(['/product', product.name]); 
+    this.router.navigate(['/product', product.name]);
   }
 
 }

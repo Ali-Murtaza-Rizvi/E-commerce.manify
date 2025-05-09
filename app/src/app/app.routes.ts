@@ -5,7 +5,17 @@ import { ProductPageComponent } from '../app/website-layout/Pages/product-page/p
 import { LoginComponent } from '../app/website-layout/Pages/auth/login/login.component';
 import { SignupComponent } from '../app/website-layout/Pages/auth/signup/signup.component';
 import { WebsiteLayoutComponent } from './website-layout/website-layout.component';
-import { DashboardComponent } from './admin-layout/dashboard/dashboard.component';
+import { AboutUsComponent } from './website-layout/Pages/about-us/about-us.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { OrdersComponent } from './admin-layout/orders/orders.component';
+import { ProductsComponent } from './admin-layout/products/products.component';
+import { ReviewsComponent } from './admin-layout/reviews/reviews.component';
+import { ContactUSComponent } from './website-layout/Pages/contact-us/contact-us.component';
+import { ShopComponent } from './website-layout/Pages/shop/shop.component';
+import { Component } from '@angular/core';
+import { UserProductsComponent } from './website-layout/Pages/shop/user-products/user-products.component';
+
+
 // import { DashboardComponent } from './Pages/admin/dashboard/dashboard.component';
 
 export const routes: Routes = [
@@ -20,9 +30,9 @@ export const routes: Routes = [
                     path:'cart',
                     component:CartComponent
                 },
-                { 
+                {
                     path: 'product/:productName',
-                    component: ProductPageComponent 
+                    component: ProductPageComponent
                 },
                 {
                     path:'auth/login',
@@ -32,16 +42,33 @@ export const routes: Routes = [
                     path:'auth/signup',
                     component:SignupComponent
                 },
+                {   path: 'about',
+                    component: AboutUsComponent
+                },
+                { path: 'contact',
+                    component: ContactUSComponent
+                },
+                {
+                    path: 'shop',
+                    component:ShopComponent,
+                    children:[
+                        {
+                            path:'product',component:UserProductsComponent // change it to correct the name 
+                        }
+                    ]
+                }
             ]
     },
     {
         path:'admin',
-        children:[
-            {
-                path:'dashboard',
-                component:DashboardComponent
-            }
-        ]
+        component:AdminLayoutComponent,
+        children: [
+            { path: 'products', component: ProductsComponent },
+            { path: 'orders', component: OrdersComponent },
+            { path: 'reviews', component: ReviewsComponent },
+            { path: '', redirectTo: 'products', pathMatch: 'full' },
+          ]
+
     }
-    
+
 ];

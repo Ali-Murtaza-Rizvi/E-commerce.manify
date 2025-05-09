@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,4 +27,11 @@ export class ProductService {
     return this.products.find(item => item.name === productName) || null;
   }
 
+
+  // getProductsByCategory() {
+  //   return this.http.get<success:boolean;products:any[]>('http://localhost:7001/api/products/searchbycat');
+  // }
+
+  
+ 
 }
