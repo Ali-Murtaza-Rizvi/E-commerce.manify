@@ -15,14 +15,14 @@ export class ProductsComponent {
   selectedImages: File[] = [];
   productForm!: FormGroup;
   products:any;
-  categories: string[] = ['Electronics', 'Clothing', 'Books', 'Groceries', 'Beauty']; 
+  categories: string[] = ['Shirts', 'Pants', 'Suits', 'Trouser', 'Shoes', 'Watches']; 
   constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(1)]],
       description: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0)]],
       category: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.min(0)]],
+      quantity: ['', [Validators.required, Validators.min(1)]],
       images: [null],
       admin_id: [] 
     });
