@@ -107,7 +107,18 @@ const deleteProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find({}); // Fetch all products
-        res.status(200).json({ success: true, products });
+        const formattedProducts = products.map(product => {
+            const formattedImages = product.images.map(img => {
+                const base64 = Buffer.from(img.data).toString('base64');
+                return `data:${img.contentType};base64,${base64}`;
+            });
+        
+            return {
+                ...product._doc,
+                images: formattedImages
+            };
+        });
+        res.status(200).json({ success: true, formattedProducts });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -128,7 +139,7 @@ const getProductById=async(req,res)=>{
 
 const Searchbycat=async(req,res)=>{
     try{
-        const {category}=req.body;
+        const {category}=req.query;
         console.log(category);
 
         if(!category){
