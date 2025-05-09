@@ -3,14 +3,16 @@
       class="sidenav" 
     >
 
-      <ul >
-        <li><a routerLink="products" routerLinkActive="active-link">Suits</a></li>
-        <li><a routerLink="orders" routerLinkActive="active-link">Pants</a></li>
-        <li><a routerLink="reviews" routerLinkActive="active-link">Shirts</a></li>
-        <li><a routerLink="reviews" routerLinkActive="active-link">Shoes</a></li>
-        <li><a routerLink="reviews" routerLinkActive="active-link">Watches</a></li>
-        <li><a routerLink="reviews" routerLinkActive="active-link">trouser</a></li>
-      </ul>
+    <ul>
+      <li><a (click)="selectCategory('All')" routerLink="products" routerLinkActive="active-link">All</a></li>
+      <li><a (click)="selectCategory('Suits')" routerLink="products" routerLinkActive="active-link">Suits</a></li>
+      <li><a (click)="selectCategory('Pants')" routerLink="products" routerLinkActive="active-link">Pants</a></li>
+      <li><a (click)="selectCategory('Shirts')" routerLink="products" routerLinkActive="active-link">Shirts</a></li>
+      <li><a (click)="selectCategory('Shoes')" routerLink="products" routerLinkActive="active-link">Shoes</a></li>
+      <li><a (click)="selectCategory('Watches')" routerLink="products" routerLinkActive="active-link">Watches</a></li>
+      <li><a (click)="selectCategory('Trouser')" routerLink="products" routerLinkActive="active-link">Trouser</a></li>
+    </ul>
+    
     </div>
 
 

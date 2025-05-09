@@ -24,7 +24,9 @@ export class NavbarComponent {
       this.isLoggedin = status;
       this.isAdmin = this.authService.isAdmin();
     });
-    this.userName =  this.authService.getName();
+    this.authService.username$.subscribe(name => {
+      this.userName = name;
+    });
     
   }
   logout(){

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +26,13 @@ export class ProductsService {
       }
     }
     return this.http.get<{success:boolean;products:any[]}>('http://localhost:7001/api/products/');//header contain the token which hold the admin id 
+  }
+
+   //categories
+  
+   getProductsByCategory(category: string) {
+    const params = new HttpParams().set('category', category);
+    return this.http.get<{success:boolean;products:any[]}>('http://localhost:7001/api/products/searchbycat',{params});//header contain the token which hold the admin id 
   }
 
 

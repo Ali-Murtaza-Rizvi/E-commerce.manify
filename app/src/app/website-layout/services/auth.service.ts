@@ -23,6 +23,9 @@ export class AuthService {
     return false;
   }
   
+  private usernameSubject = new BehaviorSubject<string | null>(this.extractUsername());
+  public username$ = this.usernameSubject.asObservable(); // for components to subscribe
+
   getName(): any {
     const token = localStorage.getItem(this.tokenKey);
     if(token){
@@ -53,8 +56,21 @@ export class AuthService {
         const token = response.token;
         localStorage.setItem(this.tokenKey, token);
         this.loggedInSubject.next(true); // emit true when logged in
+        
+        const username = this.extractUsernameFromToken(token);
+        this.usernameSubject.next(username);
       })
     )
+  }
+  private extractUsernameFromToken(token: string): string {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.username;
+  }
+  
+  // Called on service load
+  private extractUsername(): string | null {
+    const token = this.getToken();
+    return token ? this.extractUsernameFromToken(token) : null;
   }
 
    // ✅ Reactive status
