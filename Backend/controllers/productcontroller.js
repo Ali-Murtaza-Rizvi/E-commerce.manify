@@ -6,7 +6,7 @@ const Product=require('../models/productModel');
 //add a new product(admin only)
 const addProduct=async(req,res)=>{
     try{
-        const{name,price,description,category,stock}=req.body;
+        const{name,price,description,category,quantity}=req.body;
         const images = req.files.map(file => ({
             data: file.buffer,
             contentType: file.mimetype
@@ -17,7 +17,7 @@ const addProduct=async(req,res)=>{
             price:Number(price),
             description,
             category,
-            stock:Number(stock),
+            quantity:Number(quantity),
             images, // Store the images in the database
             admin_id:req.user._id, // Assuming req.user contains the authenticated admin's ID
         });
@@ -115,7 +115,7 @@ const Searchbycat=async(req,res)=>{
         console.log(category);
 
         if(!category){
-            return res(400).json({
+            return res.status(400).json({
                 sucess:false,
                 message:"category is required to find product",
             })
@@ -124,7 +124,7 @@ const Searchbycat=async(req,res)=>{
         const product=await Product.find({category:category});
 
         if(!product || product.length==0){
-            return res(404).json({
+            return res.status(404).json({
                 sucess:false,
                 messaage:"no product exist in this category",
             })
