@@ -46,7 +46,7 @@ export class CheckoutComponent implements OnChanges {
     }
   }
   confirmCheckout() {
-    alert(`You have checked out ${this.totalItems} item(s) for a total of ₹${this.totalPrice}.`);
+    alert(`You have checked out ${this.totalItems} item(s) for a total of $${this.totalPrice}.`);
     this.close();
   }
 }
