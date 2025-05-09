@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../../../../admin-layout/adminservices/products.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { CartserviceService } from '../../../../GlobalServices/cartservice.service';
 @Component({
   selector: 'app-user-products',
   imports: [CommonModule],
@@ -15,7 +16,7 @@ export class UserProductsComponent {
     productForm!: FormGroup;
     products:any;
     
-    constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService,private route: ActivatedRoute) {
+    constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService,private route: ActivatedRoute,private cartservice:CartserviceService) {
       this.productForm = this.fb.group({
         name: ['', Validators.required],
         description: ['', Validators.required],
@@ -59,5 +60,25 @@ export class UserProductsComponent {
       });
     }
 
+    
+  message: string = '';
+  showMessage: boolean = false;
 
+  AddToCart(product: any) {
+    console.log('Adding to cart:', product);
+  this.cartservice.addToCart(product).subscribe({
+    next: (res) => {
+      console.log(`${product.name} added to cart successfully`);
+      this.message = `${product.name} added to cart successfully!`;
+      this.showMessage = true;
+
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 3000);
+    },
+    error: (err) => {
+      console.error('Error adding to cart:', err);
+    }
+  });
+}
 }

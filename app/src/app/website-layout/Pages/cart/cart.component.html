@@ -5,7 +5,7 @@
   <div *ngFor="let item of cartItems; let i = index" class="card mb-3 p-3">
     <div class="row g-0 align-items-center">
       <div class="col-md-4">
-        <img [src]="item.img" class="img-fluid rounded-start cart-image" alt="{{ item.name }}">
+        <img *ngIf="item.product.image" [src]="item.product.image" width="100" alt="{{ item.product.name }}" />
       </div>
       <div class="col-md-8">
         <div class="card-body">

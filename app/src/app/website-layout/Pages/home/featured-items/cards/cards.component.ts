@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../../../services/cart.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../../services/product.service';
-
+import {CartserviceService} from '../../../../../GlobalServices/cartservice.service'
 @Component({
   selector: 'app-cards',
   imports: [CommonModule],
