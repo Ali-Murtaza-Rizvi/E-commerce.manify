@@ -1,26 +1,19 @@
-<div class="main">
-    <div
-      class="sidenav" 
-    >
-
-    <ul>
-      <li><a (click)="selectCategory('All')" routerLink="products" routerLinkActive="active-link">All</a></li>
-      <li><a (click)="selectCategory('Suits')" routerLink="products" routerLinkActive="active-link">Suits</a></li>
-      <li><a (click)="selectCategory('Pants')" routerLink="products" routerLinkActive="active-link">Pants</a></li>
-      <li><a (click)="selectCategory('Shirts')" routerLink="products" routerLinkActive="active-link">Shirts</a></li>
-      <li><a (click)="selectCategory('Shoes')" routerLink="products" routerLinkActive="active-link">Shoes</a></li>
-      <li><a (click)="selectCategory('Watches')" routerLink="products" routerLinkActive="active-link">Watches</a></li>
-      <li><a (click)="selectCategory('Trouser')" routerLink="products" routerLinkActive="active-link">Trouser</a></li>
+<div class="shop-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <ul class="category-list">
+      <li><a (click)="selectCategory('All')" routerLink="products" routerLinkActive="active">All</a></li>
+      <li><a (click)="selectCategory('Suits')" routerLink="products" routerLinkActive="active">Suits</a></li>
+      <li><a (click)="selectCategory('Pants')" routerLink="products" routerLinkActive="active">Pants</a></li>
+      <li><a (click)="selectCategory('Shirts')" routerLink="products" routerLinkActive="active">Shirts</a></li>
+      <li><a (click)="selectCategory('Shoes')" routerLink="products" routerLinkActive="active">Shoes</a></li>
+      <li><a (click)="selectCategory('Watches')" routerLink="products" routerLinkActive="active">Watches</a></li>
+      <li><a (click)="selectCategory('Trouser')" routerLink="products" routerLinkActive="active">Trouser</a></li>
     </ul>
-    
-    </div>
+  </aside>
 
-
-    <div
-      class="content"
-    >
-
-        
-      <router-outlet></router-outlet>
-    </div>
-    </div>
+  <!-- Main content -->
+  <main class="product-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
