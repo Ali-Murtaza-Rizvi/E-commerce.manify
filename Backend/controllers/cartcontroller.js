@@ -1,35 +1,181 @@
-const Cart=require("../models/cartmodel");
-const Product=require("../models/productModel");
+const Cart = require("../models/cartmodel");
+const Product = require("../models/productModel");
+const mongoose = require("mongoose");
 
-const addToCart=async(req,res)=>{
-    const{userId,productId,quantity}=req.body;
 
-    let cart=await Cart.findOne({user:userId});
-
-    const product=await Product.findById({productId});
-   
-    if(!product){
-        res.send(400).json({message:'Product not found'});
-}
- const price=Product.price;
- const item={product:productId,quantity,price};
-
- if(!Cart){
-    cart=new Cart({user:userId,item:[item],totalprice:price*quantity})
-
- }
- else{
-    const existingitem=Cart.item.findIndex(i=>i.product.toString()==productId);
-    if(existingitem>=0){
-        Cart.items[existingitem].quantity+=quantity;
+const addToCart = async (req, res) => {
+    //change this user ID should come from token using auth miidleware
+    const { userId, productId, quantity } = req.body;
+  
+    let cart = await Cart.findOne({user:userId});
+    
+  
+    const product = await Product.findById(productId);
+  
+    if (!product) {
+      return res.status(400).json({ message: 'Product not found' });
     }
-    else{
-        Cart.items.push(item);
+  
+    const price = product.price;
+    const item = { product: productId, quantity, price };
+  
+    if (!cart) {
+      cart = new Cart({ user: userId, items: [item], totalprice: price * quantity });
+    } else {
+      const existingItemIndex = cart.items.findIndex(i => i.product.toString() === productId);
+      if (existingItemIndex >= 0) {
+        cart.items[existingItemIndex].quantity += quantity;
+      } else {
+        cart.items.push(item);
+      }
+      cart.totalprice += price * quantity;
     }
-    Cart.totalprice+=price*quantity;
- }
+  
+    await cart.save();
+    res.status(200).json(cart);
+  };
+const GetCart = async (req, res) => {
+    try {
+        //change this user ID should come from token using auth miidleware
+        const userId = req.query.userId
 
- await Cart.save();
- res.status(200).json(cart);
+        // Validate if userId is provided
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "User ID is required.",
+            });
+        }
+
+        // Find the cart associated with the given userId
+        const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price");
+
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "No cart found for this user.",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            cart,
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+const delById = async (req, res) => {
+    try {
+        //change this user ID should come from token using auth miidleware
+        const { userId, productId } = req.body;
+
+        // Validate userId
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid User ID.",
+            });
+        }
+
+        // Find the cart for the user
+        const cart = await Cart.findOne({ user: userId });
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "No cart found for this user.",
+            });
+        }
+
+        // Find the product index in the cart items
+        const productIndex = cart.items.findIndex(
+            (item) => item.product.toString() === productId
+        );
+
+        if (productIndex === -1) {
+            return res.status(400).json({
+                success: false,
+                message: "Product not found in the cart.",
+            });
+        }
+
+        // Remove the product from the cart
+        cart.items.splice(productIndex, 1);
+
+        // Recalculate the total price
+        cart.totalprice = cart.items.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+        );
+
+        // Save the updated cart
+        await cart.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Product deleted successfully.",
+            cart, // Return the updated cart for confirmation
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+const ClearCart=async(req,res)=>{
+    try{
+        //change this user ID should come from token using auth miidleware
+        const{userId}=req.body;
+        const cart=await Cart.findOneAndDelete(userId);
+
+        if(!cart){
+            return res.status(404).json({
+                sucess:false,
+                message:"no cart found"
+            });
+        }
+        res.status(200).json({ success: true, message: "Cart deleted successfully." });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
     
 };
+const updatecart = async (req, res) => {
+    try {
+         //change this user ID should come from token using auth miidleware
+        const { userId, productId, quantity } = req.body; // Destructure orderId, products, and status from the request body
+
+        // Find the order by ID
+        const cart = await Cart.findById(userId);
+
+        if (!cart) {
+            return res.status(404).json({
+                success: false,
+                message: "cart not found.",
+            });
+        }
+        const  itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
+
+        if (itemIndex === -1) {
+            return res.status(404).json({ success: false, message: "Product not found in cart." });
+        }
+
+        // Update quantity or remove item if quantity is 0
+        if (quantity === 0) {
+            cart.items.splice(itemIndex, 1);
+        } else {
+            cart.items[itemIndex].quantity = quantity;
+        }
+
+        // Recalculate total price
+        cart.totalPrice = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        await cart.save();
+        res.status(200).json({ success: true, cart });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+module.exports = { addToCart,GetCart,ClearCart,updatecart,delById};

@@ -4,6 +4,7 @@ const dbConnect = require("./config/dbConnect");
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productroutes"); 
 const orderRoutes=require("./routes/orderRoutes");
+const cartroutes=require("./routes/cartroutes")
 
 
 dbConnect();  
@@ -19,6 +20,7 @@ app.use(cors());
 app.use("/api/auth", authRoutes); // Use the route at /api/auth/login or /api/auth/register
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/carts",cartroutes);
 
 //Start the server 
 const PORT = process.env.PORT || 7002;

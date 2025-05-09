@@ -13,7 +13,6 @@ const {
     updateProduct,
     deleteProduct,
     Searchbycat,
-    getAllProductsByAdmin
 } = require("../controllers/productcontroller"); // Adjust path as necessary
 
 // Public routes
