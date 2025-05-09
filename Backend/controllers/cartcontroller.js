@@ -4,12 +4,16 @@ const mongoose = require("mongoose");
 
 
 const addToCart = async (req, res) => {
-    const { userId, productId, quantity } = req.body;
+    //change this user ID should come from token using auth middleware
+    const userId = req.user._id; 
+    console.log(userId);
+    const {selectedProduct} = req.body;
   
     let cart = await Cart.findOne({user:userId});
-    
+    const productId = selectedProduct._id;
+    const quantity = selectedProduct.quantity;
   
-    const product = await Product.findById(productId);
+    const product = await Product.findById(selectedProduct._id);
   
     if (!product) {
       return res.status(400).json({ message: 'Product not found' });
@@ -35,9 +39,8 @@ const addToCart = async (req, res) => {
   };
 const GetCart = async (req, res) => {
     try {
-        const userId = req.query.userId
+        const userId = req.user._id;
 
-        // Validate if userId is provided
         if (!userId) {
             return res.status(400).json({
                 success: false,
@@ -45,8 +48,8 @@ const GetCart = async (req, res) => {
             });
         }
 
-        // Find the cart associated with the given userId
-        const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price");
+        // Populate with images too
+        const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price images");
 
         if (!cart) {
             return res.status(404).json({
@@ -55,9 +58,32 @@ const GetCart = async (req, res) => {
             });
         }
 
+        // Convert image buffer to base64
+        const updatedCartItems = cart.items.map((item) => {
+            const product = item.product;
+
+            // Default to null if no image
+            let base64Image = null;
+
+            if (product.images && product.images.length > 0) {
+                const image = product.images[0];
+                base64Image = `data:${image.contentType};base64,${image.data.toString('base64')}`;
+            }
+
+            return {
+                ...item._doc,
+                product: {
+                    _id: product._id,
+                    name: product.name,
+                    price: product.price,
+                    image: base64Image,
+                },
+            };
+        });
+
         res.status(200).json({
             success: true,
-            cart,
+            cartItems: updatedCartItems,
         });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
@@ -66,6 +92,7 @@ const GetCart = async (req, res) => {
 
 const delById = async (req, res) => {
     try {
+        //change this user ID should come from token using auth miidleware
         const { userId, productId } = req.body;
 
         // Validate userId
@@ -123,6 +150,7 @@ const delById = async (req, res) => {
 };
 const ClearCart=async(req,res)=>{
     try{
+        //change this user ID should come from token using auth miidleware
         const{userId}=req.body;
         const cart=await Cart.findOneAndDelete(userId);
 
@@ -140,6 +168,7 @@ const ClearCart=async(req,res)=>{
 };
 const updatecart = async (req, res) => {
     try {
+         //change this user ID should come from token using auth miidleware
         const { userId, productId, quantity } = req.body; // Destructure orderId, products, and status from the request body
 
         // Find the order by ID

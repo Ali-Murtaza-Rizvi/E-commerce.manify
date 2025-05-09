@@ -10,7 +10,7 @@ const {
 } = require("../controllers/ordercontroller"); // Adjust path as necessary
 
 // Public routes
-router.get("/", getAllOrders);
+router.get("/", getAllOrders);//add isadmin middleware
 router.post("/add",protect ,AddOrders);
 router.post("/delete",DeleteOrder);
 router.post("/update",protect,updateOrders);

@@ -2,39 +2,11 @@ const Product=require('../models/productModel');
 
 
 /*                                          ADMIN PRODUCT PAGE                                          */
-//display all products added by admin   
-// const getAllProductsByAdmin=async(req,res)=>{
-//     try {
-//         const adminId = req.user._id;
-//         console.log("Decoded User:", req.user);
-//         const products = await Product.find({ admin_id: adminId });
-//         console.log(products.length);
-//         if (!products.length) {
-//           return res.status(404).json({ success: false, message: 'No products found for this admin' });
-//         }
-
-//         const formattedProducts = products.map(product => {
-//             const formattedImages = product.images.map(img => {
-//                 const base64 = Buffer.from(img.data).toString('base64');
-//                 return `data:${img.contentType};base64,${base64}`;
-//             });
-        
-//             return {
-//                 ...product._doc,
-//                 images: formattedImages
-//             };
-//         });
-//         res.status(200).json({ success: true, products: formattedProducts });
-//         // res.status(200).json({ success: true, products });
-//       } catch (error) {
-//         res.status(500).json({ success: false, message: error.message });
-//       }
-// };
 
 //add a new product(admin only)
 const addProduct=async(req,res)=>{
     try{
-        const{name,price,description,category,stock}=req.body;
+        const{name,price,description,category,quantity}=req.body;
         const images = req.files.map(file => ({
             data: file.buffer,
             contentType: file.mimetype
@@ -45,7 +17,7 @@ const addProduct=async(req,res)=>{
             price:Number(price),
             description,
             category,
-            stock:Number(stock),
+            quantity:Number(quantity),
             images, // Store the images in the database
             admin_id:req.user._id, // Assuming req.user contains the authenticated admin's ID
         });
@@ -107,7 +79,18 @@ const deleteProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find({}); // Fetch all products
-        res.status(200).json({ success: true, products });
+        const formattedProducts = products.map(product => {
+            const formattedImages = product.images.map(img => {
+                const base64 = Buffer.from(img.data).toString('base64');
+                return `data:${img.contentType};base64,${base64}`;
+            });
+        
+            return {
+                ...product._doc,
+                images: formattedImages
+            };
+        });
+        res.status(200).json({ success: true, formattedProducts });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
@@ -132,7 +115,7 @@ const Searchbycat=async(req,res)=>{
         console.log(category);
 
         if(!category){
-            return res(400).json({
+            return res.status(400).json({
                 sucess:false,
                 message:"category is required to find product",
             })
@@ -141,7 +124,7 @@ const Searchbycat=async(req,res)=>{
         const product=await Product.find({category:category});
 
         if(!product || product.length==0){
-            return res(404).json({
+            return res.status(404).json({
                 sucess:false,
                 messaage:"no product exist in this category",
             })
@@ -177,6 +160,5 @@ module.exports = {
     updateProduct,
     deleteProduct,
     Searchbycat,
-
 };
     
