@@ -20,7 +20,7 @@ export class UserProductsComponent {
   products: any = [];
   message: string = '';
   showMessage: boolean = false;
-
+  selectedCategory: string = '';
   page: number = 1;
   pageSize: number = 12; // default, adjusted based on screen size
 
@@ -43,19 +43,21 @@ export class UserProductsComponent {
       admin_id: []
     });
   }
+ngOnInit() {
+  this.setPageSize();
+  window.scrollTo(0, 0);
+  this.route.queryParams.subscribe(params => {
+    const category = params['category'];
 
-  ngOnInit() {
-    this.setPageSize(); // Set on load
-
-    this.route.queryParams.subscribe(params => {
-      const category = params['category'];
-      if (!category || category.toLowerCase() === 'all') {
-        this.loadAllProducts();
-      } else {
-        this.loadProductsByCategory(category);
-      }
-    });
-  }
+    if (category && category.toLowerCase() !== 'all') {
+      console.log('Loading products by category:', category);
+      this.loadProductsByCategory(category);
+    } else {
+      console.log('Loading all products');
+      this.loadAllProducts();
+    }
+  });
+}
 
   // Adjust page size based on screen size
   @HostListener('window:resize')

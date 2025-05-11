@@ -58,6 +58,7 @@ export const routes: Routes = [
                 { path: 'contact',
                     component: ContactUSComponent
                 },
+    
                 {
                     path: 'shop',
                     component:ShopComponent,

@@ -11,9 +11,16 @@ import { ProductService } from '../../services/product.service';
   styleUrl: './shop.component.scss'
 })
 export class ShopComponent {
-  constructor(private router: Router,productservice:ProductService) { }
+  constructor(private router: Router,productservice:ProductService) { 
+    // this.router.navigate(['/shop/product']);
+  }
   ngOnInit() {
-    this.router.navigate(['/shop/product']);
+    if(this.router.url.includes('category')) {
+      const category = this.router.url.split('category=')[1];
+      this.selectCategory(category);
+    }else{
+      this.router.navigate(['/shop/product']);
+    }
   }
   selectCategory(category: string) {
     this.router.navigate(['/shop/product'], { queryParams: { category } });

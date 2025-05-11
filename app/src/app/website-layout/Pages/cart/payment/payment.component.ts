@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { CartserviceService } from '../../../../GlobalServices/cartservice.service';
 import { OrdersService } from '../../../../GlobalServices/orders.service';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+// import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-payment',
@@ -18,8 +18,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     MatStepperModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule,NgxMaskDirective],
-  providers: [provideNgxMask()],
+    MatSelectModule],
+  providers: [],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss'
 })

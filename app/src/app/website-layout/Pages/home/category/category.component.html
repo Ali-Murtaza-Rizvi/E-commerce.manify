@@ -4,9 +4,9 @@
   <div *ngFor="let product of paginatedCategories"
        [ngStyle]="{'background-image': 'url(' + product.image + ')'}"
        class="category-card">
-    <div class="card-content">
+    <div class="card-content" >
       <p class="card-title">{{ product.title }}</p>
-      <button class="shop-button">Shop Now</button>
+      <button class="shop-button" (click)="selectCategory(product.category)" routerLink="products" routerLinkActive="active">Shop Now</button>
     </div>
   </div>
 </div>
