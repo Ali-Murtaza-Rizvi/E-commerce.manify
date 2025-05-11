@@ -11,7 +11,7 @@ const addToCart = async (req, res) => {
   
     let cart = await Cart.findOne({user:userId});
     const productId = selectedProduct._id;
-    const quantity = selectedProduct.quantity;
+    const quantity = selectedProduct.selectedQuantity;
   
     const product = await Product.findById(selectedProduct._id);
   
