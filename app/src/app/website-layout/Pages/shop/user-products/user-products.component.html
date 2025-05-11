@@ -22,9 +22,9 @@
   <div class="col-sm-6 col-md-4 col-lg-2 mb-4" *ngFor="let product of paginatedProducts"
 >
     <div class="card h-100 shadow-sm"
-  (click)="goToProductPage(product)"
+  
   style="cursor: pointer;">
-      <div class="image-wrapper">
+      <div class="image-wrapper" (click)="goToProductPage(product)">
         <img
           [src]="product.images[0]"
           alt="Product Image"

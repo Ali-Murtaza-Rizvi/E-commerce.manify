@@ -67,19 +67,16 @@ export class UserProductsComponent {
   showMessage: boolean = false;
 
   AddToCart(product: any) {
-    console.log('Adding to cart:', product);
-  this.cartservice.addToCart(product).subscribe({
+  const productToAdd = {
+    ...product,
+    selectedQuantity: 1  // don't mutate original object
+  };
+  this.cartservice.addToCart(productToAdd).subscribe({
     next: (res) => {
-      console.log(`${product.name} added to cart successfully`);
-      this.message = `${product.name} added to cart successfully!`;
-      this.showMessage = true;
-
-      setTimeout(() => {
-        this.showMessage = false;
-      }, 3000);
+      console.log('Product added to cart:', res);
     },
     error: (err) => {
-      console.error('Error adding to cart:', err);
+      console.error('Error adding product to cart:', err);
     }
   });
 }
