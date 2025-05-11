@@ -16,7 +16,7 @@ export class CartComponent {
   public selected_items: any[] = [];
   public showModal:boolean = false;
 
-  constructor(private cartservices:CartserviceService,private cartservice:CartService){}
+  constructor(private cartservices:CartserviceService){}
 
 
   ngOnInit(){
@@ -31,22 +31,31 @@ export class CartComponent {
     console.log('Cart Items:', this.cartItems);
   }
 
-  removeItem(index: number) {
-    this.cartservice.removeFromCart(index);
-    this.cartItems = this.cartservice.getCartItem();  // Refresh cart items 
+  removeItem(product:any) {
+     // Refresh cart items
+     this.cartservices.removeFromCart(product._id).subscribe((res: any) => {
+      console.log('Item removed:', res);
+      this.cartItems = this.cartItems.filter(item => item._id !== product._id);
+     }); 
   }
 
   clearCart(){
-    this.cartItems=[];
-    this.cartservice.clearCart();
+    this.cartservices.clearCart().subscribe((res: any) => {
+      console.log('Cart cleared:', res);
+      this.cartItems = []; // Clear the cart items in the component
+    });
   }
 
   updateQuantity(index: number, increase: boolean) {
     if (increase) {
       this.cartItems[index].quantity += 1;
+      const product = this.cartItems[index];
+      this.cartservices.updateCartItemQuantity(product._id, product.quantity).subscribe((res: any) => {});
     } else {
       if (this.cartItems[index].quantity > 1) {
         this.cartItems[index].quantity -= 1;
+        const product = this.cartItems[index];
+        this.cartservices.updateCartItemQuantity(product._id, product.quantity).subscribe((res: any) => {});
       }
     }
   }

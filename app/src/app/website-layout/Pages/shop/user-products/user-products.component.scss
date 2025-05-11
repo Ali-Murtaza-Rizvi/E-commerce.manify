@@ -1,25 +1,68 @@
-.card img {
-    width: 100%;
-    // object-fit: contain;
-  }
-  .product-form {
-  background-color: #ffffff;
-  border-radius: 12px;
-}
-
 .product-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+ // Center items on smaller screens
 }
 
-.product-image {
-  max-height: 180px;
+@media (max-width: 576px) {
+  .col-sm-6 {
+    justify-content: center;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 350px; // uniform card height
+}
+@media (max-width: 576px) {
+  .card {
+    min-height: 300px;
+  }
+}
+.image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1; // Keeps square images
+  overflow: hidden;
+  background: #f9f9f9;
+}
+
+.card-img-top.product-image {
+  height: 100%;
+  width: 100%;
   object-fit: cover;
   border-bottom: 1px solid #ddd;
 }
+
+.card-body {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.card-title {
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-text.small.text-muted {
+  font-size: 0.85rem;
+  line-height: 1.2;
+  max-height: 2.4em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* limits to 2 lines */
+  -webkit-box-orient: vertical;
+}
+
 .add-cart-btn {
-  transition: transform 0.2s ease; // ✅ always define transition on base state
+  transition: transform 0.2s ease;
 }
 
 .add-cart-btn:hover {
@@ -30,18 +73,29 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #28a745; /* green */
+  background-color: #28a745;
   color: white;
   padding: 12px 20px;
   border-radius: 5px;
   z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   animation: fadeInOut 3s ease-in-out;
 }
 
 @keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(-20px); }
-  10% { opacity: 1; transform: translateY(0); }
-  90% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-20px); }
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }

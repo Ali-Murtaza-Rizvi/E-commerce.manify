@@ -1,8 +1,27 @@
 <div class="productBackground">
     <div class="product d-flex container" style="justify-content: center;height: 500px;width: 50%; margin-bottom: 10px;" >
-        <div class="Pimage" style="width: 40%;">
-          <img [src]="product.img" alt="Product Image" />
-        </div>
+        <div class="Pimage">
+  <div class="main-image-container">
+    <img
+      [src]="product.images[currentImageIndex]"
+      alt="Product Image"
+      class="main-product-image"
+    />
+
+    <button class="img-nav left" (click)="prevImage()">&#10094;</button>
+    <button class="img-nav right" (click)="nextImage()">&#10095;</button>
+  </div>
+
+  <div class="thumbnail-strip">
+    <img
+      *ngFor="let img of product.images; let i = index"
+      [src]="img"
+      [class.selected]="i === currentImageIndex"
+      (click)="selectImage(i)"
+    />
+  </div>
+</div>
+
 
         <div class="Pdetails" style="width:60%;">
         <!-- This have all info of product -->
@@ -37,6 +56,6 @@
         </div>
     </div>
     <app-you-may-like ></app-you-may-like>
-    <app-description [details]="product.detail"></app-description>
-    <app-review [reviews]="product.review"></app-review>
+    <app-description [details]="product.description"></app-description>
+    <app-review [reviews]="product.reviews"></app-review>
 </div>

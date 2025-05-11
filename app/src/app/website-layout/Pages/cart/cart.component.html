@@ -21,8 +21,8 @@
             <input type="number" [(ngModel)]="item.quantity" min="1" style="width: 60px; text-align: center;">
             <button (click)="updateQuantity(i, true)" class="btn btn-outline-secondary btn-sm">+</button>
           </div>
-
-          <button class="btn btn-danger btn-sm" (click)="removeItem(i)">Remove</button>
+            
+          <button class="btn btn-danger btn-sm" (click)="removeItem(item)">Remove</button>
         </div>
       </div>
     </div>

@@ -5,6 +5,8 @@ import { ProductsService } from '../../../../admin-layout/adminservices/products
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CartserviceService } from '../../../../GlobalServices/cartservice.service';
+import { Router } from '@angular/router';
+import { ProductService } from '../../../../GlobalServices/product.service';
 @Component({
   selector: 'app-user-products',
   imports: [CommonModule],
@@ -16,7 +18,7 @@ export class UserProductsComponent {
     productForm!: FormGroup;
     products:any;
     
-    constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService,private route: ActivatedRoute,private cartservice:CartserviceService) {
+    constructor(private fb: FormBuilder,private router:Router,private productservice:ProductService ,private http: HttpClient,private adminProductService: ProductsService,private route: ActivatedRoute,private cartservice:CartserviceService) {
       this.productForm = this.fb.group({
         name: ['', Validators.required],
         description: ['', Validators.required],
@@ -65,20 +67,47 @@ export class UserProductsComponent {
   showMessage: boolean = false;
 
   AddToCart(product: any) {
-    console.log('Adding to cart:', product);
-  this.cartservice.addToCart(product).subscribe({
+  const productToAdd = {
+    ...product,
+    selectedQuantity: 1  // don't mutate original object
+  };
+  this.cartservice.addToCart(productToAdd).subscribe({
     next: (res) => {
-      console.log(`${product.name} added to cart successfully`);
-      this.message = `${product.name} added to cart successfully!`;
-      this.showMessage = true;
-
-      setTimeout(() => {
-        this.showMessage = false;
-      }, 3000);
+      console.log('Product added to cart:', res);
     },
     error: (err) => {
-      console.error('Error adding to cart:', err);
+      console.error('Error adding product to cart:', err);
     }
   });
 }
+goToProductPage(product: any) {
+  this.productservice.setSelectedProduct(product);
+  this.router.navigate(['/product', product.name]);  // adjust path as needed
+}
+// In your component.ts
+page: number = 1;
+pageSize: number = 6; // Items per page
+
+get paginatedProducts() {
+  const start = (this.page - 1) * this.pageSize;
+  return this.products.slice(start, start + this.pageSize);
+}
+
+get totalPages(): number[] {
+  return Array(Math.ceil(this.products.length / this.pageSize))
+    .fill(0)
+    .map((_, i) => i + 1);
+}
+goToPreviousPage() {
+  if (this.page > 1) {
+    this.page--;
+  }
+}
+
+goToNextPage() {
+  if (this.page < this.totalPages.length) {
+    this.page++;
+  }
+}
+
 }
