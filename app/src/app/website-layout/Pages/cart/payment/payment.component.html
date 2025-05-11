@@ -1,84 +1,128 @@
 <div class="payment-container">
+  <!-- Order Summary on top for small screens -->
+  <div class="summary-section">
+    <h3>Order Summary</h3>
+    <ul>
+      <li
+        *ngFor="let item of selectedItems"
+        style="display: flex; gap: 5px; margin-bottom: 5px"
+      >
+        <div>
+          <img [src]="item.product.image" alt="" height="60" width="60" />
+        </div>
+        {{ item.product.name }} (x{{ item.quantity }}) — ${{
+          item.price * item.quantity
+        }}
+      </li>
+    </ul>
+    <hr />
+    <p><strong>Total:</strong> ${{ totalPrice }}</p>
+  </div>
+
   <!-- Stepper Form -->
   <div class="form-section">
     <mat-horizontal-stepper linear #stepper>
       <!-- Step 1: User Info -->
       <mat-step [stepControl]="userFormGroup">
         <form [formGroup]="userFormGroup">
-          <ng-template matStepLabel>Basic Information</ng-template>
+          <h3>User Information</h3>
           <mat-form-field appearance="fill">
             <mat-label>Full Name</mat-label>
             <input matInput formControlName="fullName" required />
+            <mat-error
+              *ngIf="userFormGroup.get('fullName')?.hasError('required')"
+            >
+              Full Name is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Phone</mat-label>
             <input matInput formControlName="phone" required />
+            <mat-error *ngIf="userFormGroup.get('phone')?.hasError('required')">
+              Phone is required
+            </mat-error>
           </mat-form-field>
-          <ng-template matStepLabel>Delivery Address</ng-template>
           <mat-form-field appearance="fill">
             <mat-label>Address</mat-label>
             <input matInput formControlName="address" required />
+            <mat-error
+              *ngIf="userFormGroup.get('address')?.hasError('required')"
+            >
+              Address is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>City</mat-label>
             <input matInput formControlName="city" required />
+            <mat-error *ngIf="userFormGroup.get('city')?.hasError('required')">
+              City is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>ZIP Code</mat-label>
             <input matInput formControlName="zip" required />
+            <mat-error *ngIf="userFormGroup.get('zip')?.hasError('required')">
+              ZIP Code is required
+            </mat-error>
           </mat-form-field>
-          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
-          <button mat-raised-button color="primary" matStepperNext>Next</button>
+          <div class="step-buttons">
+            <button mat-raised-button color="primary" matStepperNext>
+              Next
+            </button>
+          </div>
         </form>
-        </mat-step>
+      </mat-step>
 
-
-      <!-- Step 3: Payment -->
+      <!-- Step 2: Payment -->
       <mat-step [stepControl]="paymentFormGroup">
         <form [formGroup]="paymentFormGroup">
-          <ng-template matStepLabel>Payment</ng-template>
+          <h3>Payment Details</h3>
           <mat-form-field appearance="fill">
             <mat-label>Payment Method</mat-label>
             <mat-select formControlName="method" required>
               <mat-option value="COD">Cash on Delivery</mat-option>
               <mat-option value="Card">Card</mat-option>
             </mat-select>
+            <mat-error
+              *ngIf="paymentFormGroup.get('method')?.hasError('required')"
+            >
+              Payment method is required
+            </mat-error>
           </mat-form-field>
 
-          <ng-container *ngIf="paymentFormGroup.get('method')?.value === 'Card'">
+          <ng-container
+            *ngIf="paymentFormGroup.get('method')?.value === 'Card'"
+          >
             <mat-form-field appearance="fill">
               <mat-label>Card Number</mat-label>
-              <input matInput formControlName="cardNumber" />
+              <input matInput formControlName="cardNumber" required />
             </mat-form-field>
             <mat-form-field appearance="fill">
-              <mat-label>Expiry</mat-label>
-              <input matInput formControlName="expiry" />
+              <mat-label>Expiry (MM/YY)</mat-label>
+              <input
+                matInput
+                formControlName="expiry"
+                placeholder="MM/YY"
+                mask="00/00"
+              />
             </mat-form-field>
+
             <mat-form-field appearance="fill">
               <mat-label>CVV</mat-label>
-              <input matInput formControlName="cvv" />
+              <input matInput formControlName="cvv" required />
             </mat-form-field>
           </ng-container>
 
-          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
-          <button mat-raised-button color="accent" (click)="placeOrder()">Place Order</button>
+          <div class="step-buttons">
+            <button mat-raised-button color="primary" matStepperPrevious>
+              Back
+            </button>
+            <button mat-raised-button color="accent" (click)="placeOrder()">
+              Place Order
+            </button>
+          </div>
         </form>
       </mat-step>
     </mat-horizontal-stepper>
-  </div>
-
-  <!-- Order Summary -->
-  <div class="summary-section">
-    <h4>Order Summary</h4>
-    <ul>
-      <li *ngFor="let item of selectedItems" style="display: flex; gap:5px;margin-bottom: 5px;">
-        <div>
-          <img [src]="item.product.image" alt="" height="60" width="60"/>
-        </div>
-        {{ item.product.name }} (x{{ item.quantity }}) — ₹{{ item.price * item.quantity }}
-      </li>
-    </ul>
-    <hr />
-    <p><strong>Total:</strong> ₹{{ totalPrice }}</p>
   </div>
 </div>
