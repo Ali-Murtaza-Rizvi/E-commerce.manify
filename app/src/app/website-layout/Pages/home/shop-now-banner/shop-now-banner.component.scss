@@ -114,9 +114,19 @@
 }
 
 @media (max-width: 768px) {
+    .banner {
+        flex-direction: column; /* Stack vertically */
+        padding: 20px 0;
+        min-height: 300px; /* Reduce min height */
+    }
+
     .text {
         width: 100%;
         padding: 15px;
+    }
+
+    .text h1 {
+        font-size: 2em; /* Shrink title size */
     }
 
     .text p {
@@ -125,12 +135,35 @@
 
     .text button {
         width: 60%;
+        font-size: 0.85em;
+        padding: 6px 16px;
+    }
+
+    .pic {
+        width: 90%; /* Narrower image section */
+        margin: 0 auto;
+        height: 200px; /* Constrain height */
+    }
+
+    .pic img {
+        height: 100%;
+        border-radius: 6px;
     }
 }
 
 @media (max-width: 480px) {
+    .banner {
+        min-height: 250px;
+        max-width: 200px;
+        gap: 20px;
+    }
+
     .text {
         padding: 10px;
+    }
+
+    .text h1 {
+        font-size: 1.6em;
     }
 
     .text p {
@@ -139,5 +172,15 @@
 
     .text button {
         width: 80%;
+        font-size: 0.8em;
+    }
+
+    .pic {
+        width: 90%;
+        height: 180px;
+    }
+
+    .pic img {
+        height: 100%;
     }
 }
