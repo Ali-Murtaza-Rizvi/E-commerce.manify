@@ -18,6 +18,7 @@ export class CheckoutComponent implements OnChanges {
   public totalItems: number = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('Changes detected:', this.selectedItems);
     if (changes['selectedItems']) {
       this.calculateTotalPrice(); // 🔁 recalculate when items change
     }
