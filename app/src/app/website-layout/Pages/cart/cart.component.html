@@ -3,6 +3,7 @@
   <div *ngIf="cartItems.length === 0">Cart is empty</div>
 
   <div *ngFor="let item of cartItems; let i = index" class="card mb-3 p-3">
+<<<<<<< Updated upstream
     <div class="d-flex flex-wrap align-items-start gap-5">
       <img
         *ngIf="item.product.image"
@@ -10,6 +11,20 @@
         class="cart-image"
         alt="{{ item.product.name }}"
       />
+=======
+    <div class="row g-0 align-items-center">
+      <div class="col-md-4">
+        <img *ngIf="item.product.image" [src]="item.product.image" width="100" alt="{{ item.product.name }}" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title">{{ item.product.name }}</h5>
+            <input type="checkbox" [(ngModel)]="item.selected" name="item-{{i}}">
+          </div>
+          <p class="card-text mb-1"><strong>Price:</strong> {{ item.price }}</p>
+          <p class="card-text mb-1">{{ item.detail }}</p>
+>>>>>>> Stashed changes
 
       <div class="flex-grow-1">
         <div class="d-flex justify-content-between align-items-center mb-1">

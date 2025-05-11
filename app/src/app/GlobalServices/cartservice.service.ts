@@ -40,4 +40,20 @@ export class CartserviceService {
     return this.http.post('http://localhost:7001/api/carts/update', { productId, quantity }, { headers });
   }
 
+
+
+  // for payment page
+  private selectedItems: any[] = [];
+  
+  setSelectedItems(items: any[]) {
+    this.selectedItems = [];
+    console.log('Selected items:', items);
+    for (let item of items) {
+      this.selectedItems.push(item);
+    }
+  }
+
+  getSelectedItems() {
+    return this.selectedItems;
+  }
 }

@@ -14,17 +14,6 @@
             <mat-label>Phone</mat-label>
             <input matInput formControlName="phone" required />
           </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" required />
-          </mat-form-field>
-          <button mat-raised-button color="primary" matStepperNext>Next</button>
-        </form>
-      </mat-step>
-
-      <!-- Step 2: Address -->
-      <mat-step [stepControl]="addressFormGroup">
-        <form [formGroup]="addressFormGroup">
           <ng-template matStepLabel>Delivery Address</ng-template>
           <mat-form-field appearance="fill">
             <mat-label>Address</mat-label>
@@ -41,7 +30,8 @@
           <button mat-raised-button color="primary" matStepperPrevious>Back</button>
           <button mat-raised-button color="primary" matStepperNext>Next</button>
         </form>
-      </mat-step>
+        </mat-step>
+
 
       <!-- Step 3: Payment -->
       <mat-step [stepControl]="paymentFormGroup">
@@ -81,8 +71,11 @@
   <div class="summary-section">
     <h4>Order Summary</h4>
     <ul>
-      <li *ngFor="let item of selectedItems">
-        {{ item.name }} (x{{ item.quantity }}) — ₹{{ item.price * item.quantity }}
+      <li *ngFor="let item of selectedItems" style="display: flex; gap:5px;margin-bottom: 5px;">
+        <div>
+          <img [src]="item.product.image" alt="" height="60" width="60"/>
+        </div>
+        {{ item.product.name }} (x{{ item.quantity }}) — ₹{{ item.price * item.quantity }}
       </li>
     </ul>
     <hr />
