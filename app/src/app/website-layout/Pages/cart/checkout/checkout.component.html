@@ -3,7 +3,7 @@
   <h2 class="modal-title">Checkout</h2>
 
   <div class="cart-item" *ngFor="let item of selectedItems; let i = index">
-    <img [src]="item.img" alt="{{ item.name }}" class="item-img" />
+    <img [src]="item.product.image" alt="{{ item.name }}" class="item-img" />
     <div class="item-details">
       <h5>{{ item.name }}</h5>
       <p>Price: {{ item.price }}</p>

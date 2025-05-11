@@ -20,9 +20,6 @@ export class CartComponent {
 
 
   ngOnInit(){
-    // this.cartItems = this.cartservice.getCartItem().map((item: any) => {
-    //   return { ...item, selected: false };
-    // });
     this.cartservices.getCartItems().subscribe((res: any) => {
       this.cartItems = res.cartItems.map((item: any) => {
         return { ...item, selected: false };
