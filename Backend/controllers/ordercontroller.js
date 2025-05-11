@@ -1,52 +1,62 @@
 const Order=require("../models/ordermodel");
 const Product=require("../models/productModel");
-
+const Cart = require("../models/cartmodel");
 const AddOrders = async (req, res) => {
-    try {
-        const userId = req.user._id; // Extract user ID from the authenticated request
-        const items = req.body; // Items should be an array of products
+  try {
+    const userId = req.user._id;
+    const items = req.body.items; // Destructure items from the request body
+    const { 
+        name, phone, address, zipcode } = req.body;
 
-        // Validate the input format
-        if (!Array.isArray(items) || items.length === 0) {
-            return res.status(400).json({ success: false, message: "Order must contain at least one product." });
-        }
-
-        // Check each product and prepare the order products array
-        const products = [];
-        let totalPrice = 0;
-
-        for (const item of items) {
-            const product = await Product.findById(item.productId);
-
-            if (!product) {
-                return res.status(404).json({ success: false, message: `Product not found: ${item.productId}` });
-            }
-
-            if (item.quantity < 1) {
-                return res.status(400).json({ success: false, message: `Quantity for product ${item.productId} must be at least 1.` });
-            }
-
-            products.push({
-                product: product._id,
-                quantity: item.quantity,
-            });
-
-            totalPrice += product.price * item.quantity; // Calculate total price
-        }
-
-        // Create and save the order
-        const order = new Order({
-            user: userId,
-            products,
-            totalprice: totalPrice,
-        });
-
-        await order.save();
-
-        res.status(201).json({ success: true, message: "Order placed successfully.", order });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ success: false, message: "Order must contain at least one product." });
     }
+
+    if (!name || !phone || !address || !zipcode) {
+      return res.status(400).json({ success: false, message: "Missing user details." });
+    }
+
+    const products = [];
+    let totalPrice = 0;
+
+    for (const item of items) {
+      const product = await Product.findById(item.productId);
+      if (!product) {
+        return res.status(404).json({ success: false, message: `Product not found: ${item.productId}` });
+      }
+      console.log("hi");
+ if (item.quantity < 1) {
+        return res.status(400).json({ success: false, message: `Invalid quantity for product: ${item.productId}` });
+      }
+
+      products.push({ product: product._id, quantity: item.quantity });
+      totalPrice += product.price * item.quantity;
+    }
+
+    const order = new Order({
+      user: userId,
+      products,
+      totalprice: totalPrice,
+      name,
+      phone,
+      address,
+      zipcode,
+    });
+    console.log("hi");
+    await order.save();
+    const cart = await Cart.findOne({ user: userId });
+    if (cart) {
+      cart.items = cart.items.filter(
+        item => !items.some(ordered => item.product.toString() === ordered.productId)
+      );
+      cart.totalprice = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      await cart.save();
+    }
+     res.status(201).json({ success: true, message: "Order placed successfully", order });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 const getAllOrders=async(req,res)=>{
     try{
@@ -151,4 +161,38 @@ const DeleteOrder=async(req,res)=>{
     }
     }
 
-module.exports={getAllOrders,AddOrders,updateOrders,DeleteOrder};
+    const getOrdersByID=async(req,res)=>{
+        try{
+            const userId=req.user._id;
+            const orders=await Order.find({user:userId}).populate("products.product");
+            if(!orders || orders.length==0){
+                return res.status(404).json({
+                    success:false,
+                    message:"no orders found!"
+                });
+            }
+            res.status(200).json({
+                success:true,orders
+            });
+        }catch(error){
+            res.status(500).json({ success: false, message: error.message });
+        }
+    }
+    const DeleteOrderById=async(req,res)=>{
+        try{
+
+            const orderId=req.params.orderId;
+            const order=await Order.findByIdAndDelete(orderId);
+            if(!order){
+                return res.status(404).json({
+                    success:false,
+                    message:"order not found"
+                });
+            }
+            res.status(200).json({ success: true, message: "Order deleted successfully." });
+        }catch(error){
+            res.status(500).json({ success: false, message: error.message });
+        }
+    }
+// Exporting the functions
+module.exports={getAllOrders,AddOrders,updateOrders,DeleteOrder,getOrdersByID,DeleteOrderById};
