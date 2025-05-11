@@ -1,14 +1,28 @@
-.productBackground{
-    background: rgb(214, 211, 211);
-    margin: 0px;
+// .productBackground{
+//     background: rgb(214, 211, 211);
+//     margin: 0px;
+//     padding-top: 2%;
+// }
+
+.productBackground {
+    background: #f9f9f9; // or #ffffff for full white
+    margin: 0;
     padding-top: 2%;
-    // margin-bottom: 0px;
 }
 
-.product{
+
+// .product{
+//     background: white;
+//     padding: 10px;
+// }
+
+.product {
     background: white;
-    padding: 10px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); // subtle shadow
 }
+
 .Pdetails{
     margin-top: 10px;
     padding-right: 5px;
@@ -68,7 +82,7 @@
       max-height: 400px;
       object-fit: contain;
     }
-  } 
+  }
 
   .Pimage {
   width: 60%;
@@ -157,4 +171,3 @@
     }
   }
 
-  

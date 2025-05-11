@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #222;
+  font-weight: 600;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.6;
+  white-space: pre-line; // Preserves new lines if passed from input
+}
