@@ -19,7 +19,8 @@
 </div>
 <!-- Product Cards Container -->
   <div class="product-grid row">
-  <div class="col-sm-6 col-md-4 col-lg-2 mb-4" *ngFor="let product of products">
+  <div class="col-sm-6 col-md-4 col-lg-2 mb-4" *ngFor="let product of paginatedProducts"
+>
     <div class="card h-100 shadow-sm"
   (click)="goToProductPage(product)"
   style="cursor: pointer;">
@@ -45,3 +46,32 @@
     </div>
   </div>
 </div>
+<nav class="mt-4 text-center">
+  <ul class="pagination justify-content-center">
+<li
+  class="page-item"
+  [class.disabled]="page === 1"
+  (click)="goToPreviousPage()">
+  <a class="page-link">Previous</a>
+</li>
+
+
+    <li
+      class="page-item"
+      *ngFor="let p of totalPages"
+      [class.active]="p === page"
+      (click)="page = p"
+    >
+      <a class="page-link">{{ p }}</a>
+    </li>
+
+    <li
+  class="page-item"
+  [class.disabled]="page === totalPages.length"
+  (click)="goToNextPage()">
+  <a class="page-link">Next</a>
+</li>
+
+  </ul>
+</nav>
+

@@ -2,6 +2,15 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+ // Center items on smaller screens
+}
+
+@media (max-width: 576px) {
+  .col-sm-6 {
+    justify-content: center;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 
 .card {
@@ -10,10 +19,16 @@
   height: 100%;
   min-height: 350px; // uniform card height
 }
-
+@media (max-width: 576px) {
+  .card {
+    min-height: 300px;
+  }
+}
 .image-wrapper {
-  height: 180px;
+  width: 100%;
+  aspect-ratio: 1 / 1; // Keeps square images
   overflow: hidden;
+  background: #f9f9f9;
 }
 
 .card-img-top.product-image {

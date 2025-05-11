@@ -87,4 +87,30 @@ goToProductPage(product: any) {
   this.productservice.setSelectedProduct(product);
   this.router.navigate(['/product', product.name]);  // adjust path as needed
 }
+// In your component.ts
+page: number = 1;
+pageSize: number = 6; // Items per page
+
+get paginatedProducts() {
+  const start = (this.page - 1) * this.pageSize;
+  return this.products.slice(start, start + this.pageSize);
+}
+
+get totalPages(): number[] {
+  return Array(Math.ceil(this.products.length / this.pageSize))
+    .fill(0)
+    .map((_, i) => i + 1);
+}
+goToPreviousPage() {
+  if (this.page > 1) {
+    this.page--;
+  }
+}
+
+goToNextPage() {
+  if (this.page < this.totalPages.length) {
+    this.page++;
+  }
+}
+
 }
