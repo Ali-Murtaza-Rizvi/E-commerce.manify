@@ -1,67 +1,137 @@
-import { Component,Input,OnInit } from '@angular/core';
-import { CartService } from '../../../services/cart.service';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, HostListener,Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../../../../admin-layout/adminservices/products.service';
-import { ProductService } from '../../../services/product.service';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { CartserviceService } from '../../../../GlobalServices/cartservice.service';
 import { Router } from '@angular/router';
+import { ProductService } from '../../../../GlobalServices/product.service';
 
 @Component({
   selector: 'app-you-may-like',
   standalone: true,
-  imports: [CurrencyPipe, CommonModule],
+  imports: [CommonModule],
   templateUrl: './you-may-like.component.html',
   styleUrls: ['./you-may-like.component.scss']
 })
 export class YouMayLikeComponent {
-  @Input() category:any;
-  
-  YouMayLikeProducts:any[]=[];
-  paginatedProducts: any[] = [];
-  currentPage: number = 0;
-  itemsPerPage: number = 4; // Default value
-  totalPages: number = 0;
-  constructor(private cartservice:CartService,private productservice:ProductsService,private router:Router) {}
-  ngOnInit(){
-    this.productservice.getProductsByCategory(this.category).subscribe((data:any)=>{
-      this.YouMayLikeProducts=data;
-      console.log(this.YouMayLikeProducts);
-      this.totalPages = Math.ceil(this.YouMayLikeProducts.length / this.itemsPerPage);
-      this.updatePagination();
+  @Input() category: any;
+
+  YouMayLikeProducts: any[] = [];
+  selectedImages: File[] = [];
+  productForm!: FormGroup;
+  products: any = [];
+  message: string = '';
+  showMessage: boolean = false;
+
+  page: number = 1;
+  pageSize: number = 12; // default, adjusted based on screen size
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private productservice: ProductService,
+    private http: HttpClient,
+    private adminProductService: ProductsService,
+    private route: ActivatedRoute,
+    private cartservice: CartserviceService
+  ) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+      category: ['', Validators.required],
+      stock: ['', [Validators.required, Validators.min(0)]],
+      images: [null],
+      admin_id: []
     });
   }
 
-  checkScreenSize() {
-    this.itemsPerPage = window.innerWidth <= 768 ? 2 : 4;
-    this.totalPages = Math.ceil(this.YouMayLikeProducts.length / this.itemsPerPage);
-    this.updatePagination();
+  ngOnInit() {
+    this.setPageSize(); // Set on load {
+    this.loadProductsByCategory(this.category);
   }
 
-  updatePagination() {
-    const startIndex = this.currentPage * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedProducts = this.YouMayLikeProducts.slice(startIndex, endIndex);
-    this.totalPages = Math.ceil(this.YouMayLikeProducts.length / this.itemsPerPage);
+  // Adjust page size based on screen size
+  @HostListener('window:resize')
+  onResize() {
+    this.setPageSize();
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.updatePagination();
-    }
+  setPageSize() {
+    const width = window.innerWidth;
+    this.pageSize = width < 768 ? 6 : 12;
   }
 
-  prevPage() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.updatePagination();
-    }
+  loadAllProducts() {
+    this.adminProductService.getProducts().subscribe({
+      next: (res: any) => {
+        this.products = res.formattedProducts || [];
+        console.log('All products:', this.products);
+      },
+      error: err => {
+        console.error('Error fetching all products', err);
+      }
+    });
+  }
+
+  loadProductsByCategory(category: string) {
+    this.adminProductService.getProductsByCategory(category).subscribe({
+      next: (res: any) => {
+        this.products = res.formattedProducts || [];
+        console.log(`Products in category ${category}:`, this.products);
+      },
+      error: err => {
+        console.error('Error fetching category products', err);
+      }
+    });
   }
 
   AddToCart(product: any) {
-    this.cartservice.addToCart(product);
+    const productToAdd = {
+      ...product,
+      selectedQuantity: 1
+    };
+    this.cartservice.addToCart(productToAdd).subscribe({
+      next: () => {
+        this.message = `${product.name} added to cart successfully!`;
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 3000);
+      },
+      error: (err) => {
+        console.error('Error adding product to cart:', err);
+      }
+    });
   }
 
-  viewProduct(product: any) {
+  goToProductPage(product: any) {
+    this.productservice.setSelectedProduct(product);
     this.router.navigate(['/product', product.name]);
+  }
+
+  get paginatedProducts() {
+    const start = (this.page - 1) * this.pageSize;
+    return this.products.slice(start, start + this.pageSize);
+  }
+
+  get totalPages(): number[] {
+    return Array(Math.ceil(this.products.length / this.pageSize))
+      .fill(0)
+      .map((_, i) => i + 1);
+  }
+
+  goToPreviousPage() {
+    if (this.page > 1) {
+      this.page--;
+    }
+  }
+
+  goToNextPage() {
+    if (this.page < this.totalPages.length) {
+      this.page++;
+    }
   }
 }
