@@ -93,7 +93,8 @@ const GetCart = async (req, res) => {
 const delById = async (req, res) => {
     try {
         //change this user ID should come from token using auth miidleware
-        const { userId, productId } = req.body;
+        const userId = req.user._id;
+        const { productId } = req.body;
 
         // Validate userId
         if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -114,13 +115,13 @@ const delById = async (req, res) => {
 
         // Find the product index in the cart items
         const productIndex = cart.items.findIndex(
-            (item) => item.product.toString() === productId
+            (item) => item._id.toString() === productId
         );
 
         if (productIndex === -1) {
             return res.status(400).json({
                 success: false,
-                message: "Product not found in the cart.",
+                message: `Product not found in the cart. ${productId}`,
             });
         }
 
@@ -150,9 +151,9 @@ const delById = async (req, res) => {
 };
 const ClearCart=async(req,res)=>{
     try{
-        //change this user ID should come from token using auth miidleware
-        const{userId}=req.body;
-        const cart=await Cart.findOneAndDelete(userId);
+        //change this user ID should come from token using auth middleware
+        const userId = req.user._id;
+        const cart=await Cart.findOneAndDelete({user:userId});
 
         if(!cart){
             return res.status(404).json({
@@ -168,19 +169,19 @@ const ClearCart=async(req,res)=>{
 };
 const updatecart = async (req, res) => {
     try {
-         //change this user ID should come from token using auth miidleware
-        const { userId, productId, quantity } = req.body; // Destructure orderId, products, and status from the request body
+         //change this user ID should come from token using autmiidleware
+        const userId = req.user._id;
+         const { productId, quantity } = req.body; // Destructure orderId, products, and status from the request body
 
         // Find the order by ID
-        const cart = await Cart.findById(userId);
-
+        const cart = await Cart.findOne({ user: userId });
         if (!cart) {
             return res.status(404).json({
                 success: false,
                 message: "cart not found.",
             });
         }
-        const  itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
+        const  itemIndex = cart.items.findIndex((item) => item._id.toString() === productId);
 
         if (itemIndex === -1) {
             return res.status(404).json({ success: false, message: "Product not found in cart." });

@@ -11,8 +11,10 @@ const protect = async (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      req.user = await User.findById(decoded.id).select("-password"); // Exclude password from the user object
+      console.log("hi");
+      req.user = await User.findById(decoded.id).select("-password"); 
+      console.log(req.user);
+      // Exclude password from the user object
       if (!req.user) {
         return res.status(401).json({ message: "Not authorized, no user" });
       }
