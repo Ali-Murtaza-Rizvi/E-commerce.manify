@@ -1,4 +1,4 @@
-import { Component,input,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ProductService } from '../../../services/product.service';
@@ -6,30 +6,45 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-you-may-like',
-  imports: [CurrencyPipe,CommonModule],
+  standalone: true,
+  imports: [CurrencyPipe, CommonModule],
   templateUrl: './you-may-like.component.html',
-  styleUrl: './you-may-like.component.scss'
+  styleUrls: ['./you-may-like.component.scss']
 })
-export class YouMayLikeComponent {
-  
-  YouMayLikeProducts:any[]=[];
+export class YouMayLikeComponent implements OnInit {
+  YouMayLikeProducts: any[] = [];
   paginatedProducts: any[] = [];
   currentPage: number = 0;
-  itemsPerPage: number = 4;
+  itemsPerPage: number = 4; // Default value
   totalPages: number = 0;
-  constructor(private cartservice:CartService,private productservice:ProductService,private router:Router) {}
-  ngOnInit(){
-    this.productservice.getProducts().subscribe((data:any)=>{
-      console.log(data);
-      this.YouMayLikeProducts=data;
-      this.totalPages = Math.ceil(this.YouMayLikeProducts.length / this.itemsPerPage);
+
+  constructor(
+    private cartservice: CartService,
+    private productservice: ProductService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.checkScreenSize();
+    window.addEventListener('resize', () => this.checkScreenSize());
+    
+    this.productservice.getProducts().subscribe((data: any) => {
+      this.YouMayLikeProducts = data;
       this.updatePagination();
     });
   }
+
+  checkScreenSize() {
+    this.itemsPerPage = window.innerWidth <= 768 ? 2 : 4;
+    this.totalPages = Math.ceil(this.YouMayLikeProducts.length / this.itemsPerPage);
+    this.updatePagination();
+  }
+
   updatePagination() {
     const startIndex = this.currentPage * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.paginatedProducts = this.YouMayLikeProducts.slice(startIndex, endIndex);
+    this.totalPages = Math.ceil(this.YouMayLikeProducts.length / this.itemsPerPage);
   }
 
   nextPage() {
@@ -45,11 +60,12 @@ export class YouMayLikeComponent {
       this.updatePagination();
     }
   }
-  AddToCart(product:any){
+
+  AddToCart(product: any) {
     this.cartservice.addToCart(product);
-    console.log(product.name);
   }
-  viewProduct(product:any){
-    this.router.navigate(['/product', product.name]); 
-  } 
+
+  viewProduct(product: any) {
+    this.router.navigate(['/product', product.name]);
+  }
 }

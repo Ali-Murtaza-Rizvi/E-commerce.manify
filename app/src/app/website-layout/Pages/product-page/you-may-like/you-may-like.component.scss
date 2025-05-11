@@ -1,55 +1,69 @@
-*{
-  background: white;
-}
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  .product-card {
-    width: 280px;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-  }
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
-  .product-card .productImg {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  .product-card button{
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
+.product-card {
+  width: 280px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 
-  .price-cart {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  &:hover {
+    transform: translateY(-5px);
   }
+}
 
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 10px;
-  }
+.productImg {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
 
-  .pagination button {
-    padding: 8px 15px;
-    border: none;
-    background-color: black;
+.price-cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+
+  button {
+    padding: 8px 16px;
+    background-color: #000;
     color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-  }
+    transition: background-color 0.3s;
 
-  .pagination button:disabled {
-    background-color: gray;
-    cursor: not-allowed;
+    &:hover:not(:disabled) {
+      background-color: #333;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   }
+}
