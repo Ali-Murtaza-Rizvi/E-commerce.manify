@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post("/add",protect, addToCart);
 router.get("/getcart",protect,GetCart);
-router.post("/delete",ClearCart);
-router.post("/delbyid",delById);
-router.post("/update",updatecart);
+router.post("/delete",protect,ClearCart);
+router.post("/delbyid",protect,delById);
+router.post("/update",protect,updatecart);
 
 
 

@@ -29,6 +29,22 @@ const OrderSchema = new mongoose.Schema({
         enum: ["Pending", "Shipped", "Delivered", "Cancelled"], // Fixed typo 'Enum' -> 'enum'
         default: "Pending",
     },
+    name:{
+        type: String,
+        required: true,
+    },
+    address:{
+        type: String,
+        required: true,
+    },
+    phone:{
+        type: String,
+        required: true,
+    },
+    zipcode:{
+        type: String,
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

@@ -21,8 +21,8 @@ router.get("/user/:id", getProductById);
 
 //admin routes
 router.post("/add",upload.array("images", 5),protect, addProduct);
-router.put("/:id", isAdmin, updateProduct);
-router.delete("/:id", isAdmin, deleteProduct);
+router.put("/:id", updateProduct);
+router.delete("/:id", deleteProduct);
 router.get("/searchbycat",Searchbycat);
 // router.get("/admin",protect, getAllProductsByAdmin); 
 module.exports = router;
