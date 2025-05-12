@@ -12,24 +12,41 @@
 
 // Sidebar styles
 .sidebar {
-  width: 220px;
-  background-color: #fff;
-  padding: 30px 20px;
-  border-right: 1px solid #ddd;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
-  height: 100vh;
+  z-index: 100; // Ensure it stays above other content
+  background-color: #fff;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px 0;
 
   @media (max-width: 768px) {
+    display: flex;
     width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
+    padding: 10px;
+    overflow-x: auto;
+    background-color: #fff;
     border-bottom: 1px solid #ddd;
-    box-shadow: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 80px;
+    background: linear-gradient(to left, white, transparent);
+    pointer-events: none;
+    z-index: 10;
+
+    @media (min-width: 769px) {
+      display: none;
+    }
   }
 }
+
+
 
 .category-list {
   list-style: none;
@@ -40,18 +57,20 @@
 
   @media (max-width: 768px) {
     flex-direction: row;
-    overflow-x: auto;
-    justify-content: space-around;
+    justify-content: start;
+    gap: 10px;
+    padding: 0 10px;
   }
 }
+
 
 .category-list li {
   margin-bottom: 20px;
 
   @media (max-width: 768px) {
     margin-bottom: 0;
-    flex: 1;
     text-align: center;
+    flex: initial;
   }
 }
 

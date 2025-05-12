@@ -8,9 +8,16 @@
 
   .footer-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-evenly; // changed from space-between
+    align-items: flex-start; // for better top alignment of columns
     flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .col {
+    flex: 1;
+    min-width: 200px;
+    padding: 0 1rem;
   }
 
   @media (max-width: 768px) {

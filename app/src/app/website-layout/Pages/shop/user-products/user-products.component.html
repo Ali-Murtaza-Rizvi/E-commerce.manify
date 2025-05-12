@@ -19,23 +19,59 @@
 </div>
 <!-- Product Cards Container -->
   <div class="product-grid row">
-  <div class="col-sm-6 col-md-4 col-lg-2 mb-4" *ngFor="let product of products">
-    <div class="card h-100 shadow-sm">
-      <img
-        [src]="product.images[0]"
-        alt="Product Image"
-        class="card-img-top product-image"
-      />
+ <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-4" *ngFor="let product of paginatedProducts">
+
+    <div class="card h-100 shadow-sm"
+  
+  style="cursor: pointer;">
+      <div class="image-wrapper" (click)="goToProductPage(product)">
+        <img
+          [src]="product.images[0]"
+          alt="Product Image"
+          class="card-img-top product-image"
+        />
+      </div>
       <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text small text-muted">{{ product.description }}</p>
-        <p class="card-text fw-bold ">${{ product.price }}</p>
+        <p class="card-text fw-bold">${{ product.price }}</p>
       </div>
       <div class="mx-auto mb-3 d-flex" style="gap: 30px">
-        <button (click)="AddToCart(product)" style="background:none; border: none;margin-right: 12px;">
-        <img class="add-cart-btn" width="35" height="35" src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png" alt="shopping-cart--v1"/>
-      </button>
+        <button (click)="AddToCart(product)" style="background: none; border: none; margin-right: 12px;">
+          <img class="add-cart-btn" width="35" height="35"
+               src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
+               alt="shopping-cart--v1" />
+        </button>
       </div>
     </div>
   </div>
 </div>
+<nav class="mt-4 text-center">
+  <ul class="pagination justify-content-center">
+<li
+  class="page-item"
+  [class.disabled]="page === 1"
+  (click)="goToPreviousPage()">
+  <a class="page-link">Previous</a>
+</li>
+
+
+    <li
+      class="page-item"
+      *ngFor="let p of totalPages"
+      [class.active]="p === page"
+      (click)="page = p"
+    >
+      <a class="page-link">{{ p }}</a>
+    </li>
+
+    <li
+  class="page-item"
+  [class.disabled]="page === totalPages.length"
+  (click)="goToNextPage()">
+  <a class="page-link">Next</a>
+</li>
+
+  </ul>
+</nav>
+

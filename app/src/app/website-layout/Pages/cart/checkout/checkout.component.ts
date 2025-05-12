@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { CartserviceService } from '../../../../GlobalServices/cartservice.service';
 @Component({
   selector: 'app-checkout',
   standalone: true,
@@ -16,8 +17,9 @@ export class CheckoutComponent implements OnChanges {
 
   public totalPrice: number = 0;
   public totalItems: number = 0;
-
+constructor(private router: Router, private cartservice: CartserviceService) {}
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('Changes detected:', this.selectedItems);
     if (changes['selectedItems']) {
       this.calculateTotalPrice(); // 🔁 recalculate when items change
     }
@@ -47,6 +49,10 @@ export class CheckoutComponent implements OnChanges {
   }
   confirmCheckout() {
     alert(`You have checked out ${this.totalItems} item(s) for a total of $${this.totalPrice}.`);
-    this.close();
+    this.cartservice.setSelectedItems(this.selectedItems);
+    this.router.navigate(['/cart/payment']);
+    // this.close();
+
   }
+
 }

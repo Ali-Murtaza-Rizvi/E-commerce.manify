@@ -7,3 +7,9 @@
   font-size: 3em;
   font-style: normal;
 }
+@media (max-width: 768px){
+  .heading{
+    font-size: 2em;
+    text-align: center;
+  }
+}

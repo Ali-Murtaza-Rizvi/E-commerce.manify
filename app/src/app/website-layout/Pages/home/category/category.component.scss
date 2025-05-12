@@ -10,11 +10,10 @@
 .container {
     display: flex;
     flex-wrap:wrap;
-    overflow: scroll;
     gap: 30px;
     justify-content: center;
   }
-  
+
   .category-card {
     width: 340px;
     height: 200px;
@@ -25,11 +24,11 @@
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
-  
+
     &:hover {
       transform: scale(1.05);
     }
-  
+
     .card-content {
       position: absolute;
       top: 0;
@@ -46,17 +45,17 @@
       transition: opacity 0.4s ease-in-out;
       text-align: center;
     }
-  
+
     &:hover .card-content {
       opacity: 1; /* Show overlay on hover */
     }
-  
+
     .card-title {
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 10px;
     }
-  
+
     .shop-button {
       background: none;
       border: 2px solid white;
@@ -64,7 +63,7 @@
       padding: 8px 16px;
       cursor: pointer;
       transition: background 0.3s ease-in-out;
-  
+
       &:hover {
         background: white;
         color: black;
@@ -98,3 +97,37 @@
       width: 150px;
     }
   }
+  .pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 10px;
+  font-family: "Outfit", sans-serif;
+
+  button {
+    background-color: transparent;
+    border: 2px solid #000;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #000;
+      color: #fff;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  span {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}

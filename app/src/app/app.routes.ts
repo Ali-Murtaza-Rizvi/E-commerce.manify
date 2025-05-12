@@ -14,6 +14,8 @@ import { ContactUSComponent } from './website-layout/Pages/contact-us/contact-us
 import { ShopComponent } from './website-layout/Pages/shop/shop.component';
 import { Component } from '@angular/core';
 import { UserProductsComponent } from './website-layout/Pages/shop/user-products/user-products.component';
+import { PaymentComponent } from './website-layout/Pages/cart/payment/payment.component';
+import { OrderPageComponent } from './website-layout/Pages/order-page/order-page.component';
 
 
 // import { DashboardComponent } from './Pages/admin/dashboard/dashboard.component';
@@ -31,6 +33,10 @@ export const routes: Routes = [
                     component:CartComponent
                 },
                 {
+                    path: 'cart/payment',
+                    component: PaymentComponent
+                },
+                {
                     path: 'product/:productName',
                     component: ProductPageComponent
                 },
@@ -45,9 +51,14 @@ export const routes: Routes = [
                 {   path: 'about',
                     component: AboutUsComponent
                 },
+                {
+                    path: 'orders',
+                    component: OrderPageComponent
+                },
                 { path: 'contact',
                     component: ContactUSComponent
                 },
+    
                 {
                     path: 'shop',
                     component:ShopComponent,

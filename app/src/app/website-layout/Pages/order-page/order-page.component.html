@@ -1,0 +1,37 @@
+<div *ngFor="let order of orders" class="card mb-3">
+  <div class="card-body">
+    <h5>Order ID: {{ order._id }}</h5>
+    <p><strong>Status:</strong> {{ order.status }}</p>
+    <p><strong>Total:</strong> ₹{{ order.totalprice }}</p>
+    <p><strong>Address:</strong> {{ order.address }} ({{ order.zipcode }})</p>
+
+    <!-- Product Table -->
+    <div class="table-responsive mt-3">
+      <table class="table table-bordered table-striped">
+        <thead class="table-light">
+          <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price (per item)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of order.products">
+            <td>{{ item.product._id || item.product }}</td>
+            <td>{{ item.product.name || 'N/A' }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>₹{{ item.product.price || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<button
+      *ngIf="order.status === 'Pending'"
+      class="btn btn-danger mt-3"
+      (click)="cancelOrder(order._id)"
+    >
+      Cancel Order
+    </button>
+  </div>
+</div>

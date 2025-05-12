@@ -1,11 +1,19 @@
-<hr>
-<p style="align-items: center;display: flex; justify-content: center;" class="heading">CATEGORY</p>
+<p class="heading" style="align-items: center; display: flex; justify-content: center;">CATEGORY</p>
 
 <div class="container">
-  <div *ngFor="let product of Categories" [ngStyle]="{'background-image': 'url(' + product.image + ')'}" class="category-card">
-      <div class="card-content">
-          <p class="card-title">{{ product.title }}</p>
-          <button class="shop-button">Shop Now</button>
-      </div>
+  <div *ngFor="let product of paginatedCategories"
+       [ngStyle]="{'background-image': 'url(' + product.image + ')'}"
+       class="category-card">
+    <div class="card-content" >
+      <p class="card-title">{{ product.title }}</p>
+      <button class="shop-button" (click)="selectCategory(product.category)" routerLink="products" routerLinkActive="active">Shop Now</button>
+    </div>
   </div>
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }}</span>
+  <button (click)="nextPage()" [disabled]="(currentPage * itemsPerPage) >= Categories.length">Next</button>
 </div>
