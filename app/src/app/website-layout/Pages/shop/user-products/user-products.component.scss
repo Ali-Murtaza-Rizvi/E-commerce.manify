@@ -2,71 +2,85 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
- // Center items on smaller screens
 }
 
-@media (max-width: 576px) {
-  .col-sm-6 {
-    justify-content: center;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-}
-
-.card {
+.card.product-card {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 350px; // uniform card height
-}
-@media (max-width: 576px) {
-  .card {
-    min-height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   }
 }
+
 .image-wrapper {
   width: 100%;
-  aspect-ratio: 1 / 1; // Keeps square images
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #f9f9f9;
-}
+  background: #f5f5f5;
 
-.card-img-top.product-image {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .card-body {
+  padding: 12px;
   flex: 1 1 auto;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .card-title {
   font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.card-text.small.text-muted {
+.card-description {
   font-size: 0.85rem;
+  color: #6c757d;
   line-height: 1.2;
-  max-height: 2.4em;
   overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* limits to 2 lines */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
-.add-cart-btn {
-  transition: transform 0.2s ease;
+.card-price {
+  font-weight: bold;
+  color: #000;
+  margin-top: auto;
 }
 
-.add-cart-btn:hover {
-  transform: scale(1.1);
+.card-footer {
+  padding-bottom: 12px;
+}
+
+.cart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  img {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.1);
+  }
 }
 
 .toast-message {
