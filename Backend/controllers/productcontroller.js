@@ -31,12 +31,12 @@ const addProduct=async(req,res)=>{
 //Admin can update product details
 const updateProduct = async (req, res) => {
     try {
-        const { productName, price, description, category, stock } = req.body;
+        const { name, price, description, category, stock } = req.body;
         
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
             {
-                productName,
+                name,
                 price,
                 description,
                 category,
