@@ -14,6 +14,7 @@ import { OnInit } from '@angular/core';
 export class ProductsComponent {
   selectedImages: File[] = [];
   productForm!: FormGroup;
+  UpdateproductForm!: FormGroup;
   products:any;
   categories: string[] = ['Shirts', 'Pants', 'Suits', 'Trouser', 'Shoes', 'Watches']; 
   constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService) {
@@ -57,17 +58,10 @@ export class ProductsComponent {
     this.selectedImages.forEach(img => formData.append('images', img)); 
     this.adminProductService.addProduct(formData);
   }
-
-  // getProducts() {
-  //   console.log('Fetching products...');
-  //   this.adminProductService.getProducts().subscribe((data: any) => {
-  //     this.products = data;
-  //     console.log(this.products);
-  //   }, (error) => {
-  //     console.error('Error fetching products:', error);
-  //   });
-  // }
-
-
+deleteProduct(productId: string) {
+  this.adminProductService.deleteProduct(productId);
+  this.products = this.products.filter((product: any) => product._id !== productId);
+}
+ 
 
 }

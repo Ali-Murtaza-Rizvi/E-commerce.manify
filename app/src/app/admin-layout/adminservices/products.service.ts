@@ -28,12 +28,25 @@ export class ProductsService {
     return this.http.get<{success:boolean;products:any[]}>('http://localhost:7001/api/products/');//header contain the token which hold the admin id 
   }
 
-   //categories
+  deleteProduct(productId: string) {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+    };
   
-   getProductsByCategory(category: string) {
-    const params = new HttpParams().set('category', category);
-    return this.http.get<{success:boolean;products:any[]}>('http://localhost:7001/api/products/searchbycat',{params});//header contain the token which hold the admin id 
+    this.http.delete(`http://localhost:7001/api/products/${productId}`, { headers }).subscribe(
+      res => console.log('Product deleted:', res),
+      err => console.error('Error:', err)
+    );
   }
+  
+  //categories
+
+  getProductsByCategory(category: string) {
+    const params = new HttpParams().set('category', category);
+    return this.http.get<{success:boolean;products:any[]}>('http://localhost:7001/api/products/searchbycat',{params});//header contain the token which hold the admin id
+    }
+
+
 
 
 }
