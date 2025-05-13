@@ -1,4 +1,3 @@
-<h1 class="d-flex justify-content-center">Featured Products</h1>
 
 <!-- Toast Message -->
 <div *ngIf="showMessage" class="toast-message">
@@ -6,10 +5,10 @@
 </div>
 
 <!-- Product Cards Container -->
-<div class="product-grid row mx-5 my-3 d-flex justify-content-center">
+<div class="product-grid row mx-3 my-3">
   <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4" *ngFor="let item of paginatedProducts">
-    <div class="card h-100 shadow-sm product-card" (click)="goToProductPage(item)">
-      <div class="image-wrapper">
+    <div class="card h-100 shadow-sm product-card" >
+      <div class="image-wrapper" (click)="goToProductPage(item)">
         <img
           [src]="item.images[0]"
           alt="Product Image"
@@ -21,11 +20,9 @@
         <p class="card-description">{{ item.description }}</p>
         <p class="card-price">${{ item.price }}</p>
       </div>
-      <div class="card-footer text-center">
-        <button (click)="AddToCart(item.product); $event.stopPropagation()" class="cart-button">
-          <img width="30" height="30"
-               src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
-               alt="Add to Cart" />
+      <div class=" mb-2 text-center">
+        <button class="btn btn-danger" (click)="delete(item); $event.stopPropagation()" >
+            Delete
         </button>
       </div>
     </div>

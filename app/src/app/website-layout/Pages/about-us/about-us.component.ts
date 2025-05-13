@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-about-us',
   standalone: true,
@@ -23,4 +23,11 @@ export class AboutUsComponent {
       image: 'assests/faris.jpg'
     }
   ];
+
+
+  constructor(private router: Router) { }
+  goToShop() {
+    // Logic to navigate to the shop now page
+    this.router.navigate(['/shop']);
+  }
 }

@@ -32,6 +32,10 @@
   object-fit: contain;
 }
 
+.login_signup-btn:hover{
+  background-color: #000000;
+  color: white;
+}
 /* Navbar Links */
 .navbar-nav .nav-link {
   font-weight: 500;
@@ -62,6 +66,11 @@
   color: #f0eded;
   border: 2.5px solid;
   background-color: black;
+}
+.router-link-active {
+  font-weight: bold;
+  color: #150d0a !important;
+  border-bottom: 2px solid #150d0a;
 }
 
 /* Cart Button */
