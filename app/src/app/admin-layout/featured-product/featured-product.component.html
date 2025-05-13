@@ -1,29 +1,28 @@
+
 <!-- Toast Message -->
 <div *ngIf="showMessage" class="toast-message">
   {{ message }}
 </div>
 
 <!-- Product Cards Container -->
-<div class="product-grid row">
-  <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4" *ngFor="let product of paginatedProducts">
-    <div class="card h-100 shadow-sm product-card" (click)="goToProductPage(product)">
-      <div class="image-wrapper">
+<div class="product-grid row mx-3 my-3">
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4" *ngFor="let item of paginatedProducts">
+    <div class="card h-100 shadow-sm product-card" >
+      <div class="image-wrapper" (click)="goToProductPage(item)">
         <img
-          [src]="product.images[0]"
+          [src]="item.images[0]"
           alt="Product Image"
           class="card-img-top product-image"
         />
       </div>
       <div class="card-body d-flex flex-column">
-        <h5 class="card-title" [title]="product.name">{{ product.name }}</h5>
-        <p class="card-description">{{ product.description }}</p>
-        <p class="card-price">${{ product.price }}</p>
+        <h5 class="card-title" [title]="item.name">{{ item.name }}</h5>
+        <p class="card-description">{{ item.description }}</p>
+        <p class="card-price">${{ item.price }}</p>
       </div>
-      <div class="card-footer text-center">
-        <button (click)="AddToCart(product); $event.stopPropagation()" class="cart-button">
-          <img width="30" height="30"
-               src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
-               alt="Add to Cart" />
+      <div class=" mb-2 text-center">
+        <button class="btn btn-danger" (click)="delete(item); $event.stopPropagation()" >
+            Delete
         </button>
       </div>
     </div>
@@ -48,3 +47,4 @@
     </li>
   </ul>
 </nav>
+

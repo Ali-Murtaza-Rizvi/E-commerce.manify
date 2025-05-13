@@ -1,25 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-*{
-    background:#0b0b0b;
+
+* {
+    background: #0b0b0b;
     color: aliceblue;
-}
-.banner {
-    position: relative;
-    font-family: "Outfit", sans-serif;
-    display: flex;
-    gap: 40px;
-    padding: 0; /* Removed vertical padding */
-    min-height: 400px; /* Set a minimum height */
-    overflow: hidden; /* Prevents image overflow */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Text Section */
+.banner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    font-family: "Outfit", sans-serif;
+    min-height: 100vh;
+    padding: 60px 5%;
+}
+
 .text {
     flex: 1;
-    padding: 60px 5%; /* Moved padding here from banner */
+    max-width: 600px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Vertically centers text content */
+    justify-content: center;
+    padding: 20px;
 }
 
 .text h1 {
@@ -27,77 +33,78 @@
     font-size: 3em;
     line-height: 1.1;
     margin-bottom: 24px;
-
 }
+
 .text p {
     font-weight: 400;
     font-size: 1.3em;
     line-height: 1.7;
     margin-bottom: 32px;
-    color:  #d8d2d2;
+    color: #d8d2d2;
 }
 
 .text p span {
     font-size: 1.32em;
     font-weight: 600;
     font-style: italic;
-    color:white;
+    color: white;
 }
+
 .text button {
     font-family: "Outfit", sans-serif;
     font-weight: 300;
-    font-size: 0.9em; /* Reduced from 1.1em */
-    padding: 8px 20px; /* Reduced from 12px 32px */
+    font-size: 0.9em;
+    padding: 8px 20px;
     background: transparent;
     color: aliceblue;
-    border: 1.5px solid aliceblue; /* Slightly thinner border */
-    border-radius: 20px; /* Slightly less rounded */
+    border: 1.5px solid aliceblue;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-    letter-spacing: 0.8px; /* Slightly reduced */
+    letter-spacing: 0.8px;
     margin-top: 10px;
-    width: 20%; /* Ensures it doesn't stretch */
-    display: inline-block; /* Better for button sizing */
+    width: fit-content;
+    align-self: center;
 }
 
 .text button:hover {
     background: aliceblue;
     color: #0b0b0b;
-    border-color: aliceblue;
-    transform: translateY(-1px); /* More subtle hover lift */
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1); /* Smaller shadow */
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
-
-/* Image Section */
 .pic {
-    width: 30%; /* Increased from 30% */
+    flex: 1;
     display: flex;
     justify-content: center;
-    align-items: stretch; /* Changed from center to stretch */
-    height: 100%; /* Full height of banner */
+    align-items: center;
 }
 
 .pic img {
     width: 100%;
-    height: 100%; /* Full height */
-    object-fit: cover; /* Ensures image covers the space without distortion */
-    object-position: center; /* Centers the image */
-    border-radius: 8px; /* Optional: if you want rounded corners */
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
-/* Responsive Adjustments */
+/* Tablets and below */
 @media (max-width: 1024px) {
     .banner {
-        flex-direction: row; /* Stack elements */
+        flex-direction: column;
         align-items: center;
+        padding: 30px 5%;
         text-align: center;
     }
 
     .text {
-        width: 90%; /* Adjust width for smaller screens */
-        padding: 20px;
+        align-items: center;
+    }
+
+    .text h1 {
+        font-size: 2.2em;
     }
 
     .text p {
@@ -105,61 +112,33 @@
     }
 
     .text button {
-        width: 50%;
-    }
-
-    .pic {
-        width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .banner {
-        flex-direction: column; /* Stack vertically */
-        padding: 20px 0;
-        min-height: 300px; /* Reduce min height */
-    }
-
-    .text {
-        width: 100%;
-        padding: 15px;
-    }
-
-    .text h1 {
-        font-size: 2em; /* Shrink title size */
-    }
-
-    .text p {
-        font-size: 1em;
-    }
-
-    .text button {
         width: 60%;
-        font-size: 0.85em;
-        padding: 6px 16px;
     }
 
     .pic {
-        width: 90%; /* Narrower image section */
-        margin: 0 auto;
-        height: 200px; /* Constrain height */
-    }
-
-    .pic img {
-        height: 100%;
-        border-radius: 6px;
+        width: 90%;
+        height: auto;
     }
 }
 
+/* Phones (iPhone 12 Pro and below) */
 @media (max-width: 480px) {
     .banner {
-        min-height: 250px;
-        max-width: 200px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
         gap: 20px;
+        padding: 20px 10px;
+        min-height: 100vh;
     }
 
     .text {
+        width: 100%;
         padding: 10px;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
     }
 
     .text h1 {
@@ -167,20 +146,25 @@
     }
 
     .text p {
-        font-size: 0.9em;
+        font-size: 0.95em;
     }
 
     .text button {
         width: 80%;
         font-size: 0.8em;
+        padding: 8px 16px;
     }
 
     .pic {
-        width: 90%;
-        height: 180px;
+        width: 100%;
+        height: 200px;
     }
 
     .pic img {
-        height: 100%;
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+        object-position: top;
+        border-radius: 6px;
     }
 }

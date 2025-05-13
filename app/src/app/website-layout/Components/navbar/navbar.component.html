@@ -22,18 +22,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto gap-lg-5">
         <li class="nav-item">
-          <a
-            class="nav-link active"
+          <a 
+            class="nav-link"
             routerLink="/"
             routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{ exact: true }"
             >Home</a
           >
         </li>
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link "
             routerLink="/about"
             routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{ exact: true }"
             >About</a
           >
         </li>
@@ -50,24 +52,14 @@
             class="nav-link"
             routerLink="/contact"
             routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{ exact: true }"
             >Contact</a
           >
         </li>
       </ul>
 
-      <!-- Search, Cart, Login/Signup -->
+      <!-- Cart, Login/Signup -->
       <div class="d-flex align-items-center gap-4">
-        <!-- Search -->
-        <form class="d-flex align-items-center gap-2" role="search">
-          <input
-            class="form-control"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-dark" type="submit">Search</button>
-        </form>
-
         <!-- Cart -->
         <button routerLink="/cart" class="btn cart-btn" title="View Cart">
           <img
@@ -82,11 +74,12 @@
         <div class="auth-buttons d-flex gap-2" *ngIf="!isLoggedin">
           <button
             routerLink="auth/login"
-            class="btn btn-outline-primary login-btn"
+            class="btn login_signup-btn"
+            
           >
             Login
           </button>
-          <button routerLink="auth/signup" class="btn btn-primary signup-btn">
+          <button routerLink="auth/signup" class="btn login_signup-btn" >
             Sign Up
           </button>
         </div>
@@ -94,7 +87,7 @@
 
           <button style="color: black; font-size: large;" mat-button [matMenuTriggerFor]="menu">{{userName}}</button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Profile</button>
+            <!-- <button mat-menu-item>Profile</button> -->
             <button routerLink="admin" mat-menu-item>Dashboard</button>
             <button routerLink="orders" mat-menu-item>Orders</button>
             <button (click)="logout()" mat-menu-item>Logout</button>

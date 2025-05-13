@@ -1,0 +1,94 @@
+import { Component} from '@angular/core';
+// import { CardsComponent } from "./cards/cards.component";
+import { FeaturedService } from '../../GlobalServices/featured.service';
+import { HttpClient } from '@angular/common/http';
+import { ProductsService } from '../../admin-layout/adminservices/products.service';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartserviceService } from '../../GlobalServices/cartservice.service';
+import { ProductService } from '../../GlobalServices/product.service';
+import { HostListener } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-featured-product',
+  imports: [FormsModule,CommonModule],
+  templateUrl: './featured-product.component.html',
+  styleUrl: './featured-product.component.scss'
+})
+export class FeaturedProductComponent {
+    selectedImages: File[] = [];
+      products: any = [];
+      message: string = '';
+      showMessage: boolean = false;
+      selectedCategory: string = '';
+      page: number = 1;
+      pageSize: number = 12; 
+    featuredProducts:any[]=[];
+    constructor(private featuredService: FeaturedService,
+        private router: Router,
+        private productservice: ProductService,
+        private http: HttpClient,
+        private adminProductService: ProductsService,
+        private route: ActivatedRoute,
+        private cartservice: CartserviceService) { }
+        ngOnInit() {
+      this.setPageSize();
+      this.featuredService.getFeaturedProducts().subscribe((data:any)=>{
+        console.log(data);
+        this.featuredProducts=data.featuredProducts;
+    });
+    }
+    @HostListener('window:resize')
+      onResize() {
+        this.setPageSize();
+      }
+    
+      setPageSize() {
+        const width = window.innerWidth;
+        this.pageSize = width < 768 ? 6 : 12;
+      }
+    
+  
+  
+    goToProductPage(product: any) {
+      this.productservice.setSelectedProduct(product);
+      this.router.navigate(['/product', product.name]);
+    }
+  
+    get paginatedProducts() {
+      const start = (this.page - 1) * this.pageSize;
+      return this.featuredProducts.slice(start, start + this.pageSize);
+    }
+  
+    get totalPages(): number[] {
+      return Array(Math.ceil(this.featuredProducts.length / this.pageSize))
+        .fill(0)
+        .map((_, i) => i + 1);
+    }
+  
+    goToPreviousPage() {
+      if (this.page > 1) {
+        this.page--;
+      }
+    }
+  
+    goToNextPage() {
+      if (this.page < this.totalPages.length) {
+        this.page++;
+      }
+    }
+  
+  delete(item: any) {
+  const productId = item.product?._id || item._id; // fallback in case it's flat
+  this.featuredService.removeFeaturedProduct(productId).subscribe((data: any) => {
+    console.log(data);
+    this.featuredProducts = this.featuredProducts.filter(f => f.product._id !== productId);
+    this.message = `${item.product?.name || item.name} removed from featured products successfully!`;
+    this.showMessage = true;
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 3000);
+  });
+}
+}

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../adminservices/products.service';
 import { OnInit } from '@angular/core';
+import {FeaturedService} from '.././../GlobalServices/featured.service';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -17,7 +18,7 @@ export class ProductsComponent {
   UpdateproductForm!: FormGroup;
   products:any;
   categories: string[] = ['Shirts', 'Pants', 'Suits', 'Trouser', 'Shoes', 'Watches']; 
-  constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService) {
+  constructor(private fb: FormBuilder, private http: HttpClient,private adminProductService: ProductsService, private featuredService: FeaturedService) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
@@ -63,5 +64,14 @@ deleteProduct(productId: string) {
   this.products = this.products.filter((product: any) => product._id !== productId);
 }
  
-
+featureProduct(product:any){
+  this.featuredService.addFeaturedProduct(product).subscribe({
+    next: (res: any) => {
+      console.log('Product featured successfully:', res);
+    },
+    error: err => {
+      console.error('Error featuring product', err);
+    }
+  });
+}
 }

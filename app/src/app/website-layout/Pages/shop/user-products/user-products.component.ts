@@ -114,6 +114,7 @@ ngOnInit() {
   }
 
   goToProductPage(product: any) {
+    
     this.productservice.setSelectedProduct(product);
     this.router.navigate(['/product', product.name]);
   }

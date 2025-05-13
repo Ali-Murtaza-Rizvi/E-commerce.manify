@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 import { UserProductsComponent } from './website-layout/Pages/shop/user-products/user-products.component';
 import { PaymentComponent } from './website-layout/Pages/cart/payment/payment.component';
 import { OrderPageComponent } from './website-layout/Pages/order-page/order-page.component';
-
+import { FeaturedProductComponent } from './admin-layout/featured-product/featured-product.component';
 
 // import { DashboardComponent } from './Pages/admin/dashboard/dashboard.component';
 
@@ -77,6 +77,7 @@ export const routes: Routes = [
             { path: 'products', component: ProductsComponent },
             { path: 'orders', component: OrdersComponent },
             { path: 'reviews', component: ReviewsComponent },
+            { path: 'featured', component: FeaturedProductComponent },
             { path: '', redirectTo: 'products', pathMatch: 'full' },
           ]
 

@@ -1,5 +1,53 @@
-<div>
-    <hr>
-    <h1 class="mb-4 heading" style="display: flex; justify-content: center; align-items: center; ">Featured Products</h1>
-    <app-cards ></app-cards>
+<h1 class="d-flex justify-content-center">Featured Products</h1>
+
+<!-- Toast Message -->
+<div *ngIf="showMessage" class="toast-message">
+  {{ message }}
 </div>
+
+<!-- Product Cards Container -->
+<div class="product-grid row mx-5 my-3 d-flex justify-content-center">
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4" *ngFor="let item of paginatedProducts">
+    <div class="card h-100 shadow-sm product-card" (click)="goToProductPage(item)">
+      <div class="image-wrapper">
+        <img
+          [src]="item.images[0]"
+          alt="Product Image"
+          class="card-img-top product-image"
+        />
+      </div>
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title" [title]="item.name">{{ item.name }}</h5>
+        <p class="card-description">{{ item.description }}</p>
+        <p class="card-price">${{ item.price }}</p>
+      </div>
+      <div class="card-footer text-center">
+        <button (click)="AddToCart(item.product); $event.stopPropagation()" class="cart-button">
+          <img width="30" height="30"
+               src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
+               alt="Add to Cart" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination -->
+<nav class="mt-4 text-center">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="page === 1" (click)="goToPreviousPage()">
+      <a class="page-link">Previous</a>
+    </li>
+    <li
+      class="page-item"
+      *ngFor="let p of totalPages"
+      [class.active]="p === page"
+      (click)="page = p">
+      <a class="page-link">{{ p }}</a>
+    </li>
+    <li class="page-item" [class.disabled]="page === totalPages.length" (click)="goToNextPage()">
+      <a class="page-link">Next</a>
+    </li>
+  </ul>
+</nav>
+
