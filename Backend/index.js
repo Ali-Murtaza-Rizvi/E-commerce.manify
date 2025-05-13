@@ -5,7 +5,7 @@ const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productroutes"); 
 const orderRoutes=require("./routes/orderRoutes");
 const cartroutes=require("./routes/cartroutes")
-
+const featuredRoutes = require("./routes/featured");
 
 dbConnect();  
 const cors = require('cors');
@@ -26,7 +26,7 @@ app.use("/api/auth", authRoutes); // Use the route at /api/auth/login or /api/au
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/carts",cartroutes);
-
+app.use("/api/featured", featuredRoutes);
 //Start the server 
 const PORT = process.env.PORT || 7002;
 app.listen(PORT,()=>{
